@@ -14,17 +14,17 @@ const HeaderComponent = () => {
     const handleMode = () => {
         if(mode == "Dark Mode") {
             setMode("Lite Mode")
-            setModeProps({backgroundColor: "black", color:"white", boxShadow: "0 4px 8px 0 rgba(225, 225, 225, 0.2)"})
-            document.body.style.backgroundColor = "black"
+            setModeProps({backgroundColor: "rgb(59, 59, 64)", color:"white", boxShadow: "0 4px 8px 0 rgba(225, 225, 225, 0.2)"})
+            document.body.style.backgroundColor = "rgb(59, 59, 64)"
             document.body.style.color = "white"
-            document.body.style.border = "1px solid white"
+            // document.body.style.border = "1px solid white"
         }
         else {
             setMode("Dark Mode")
             setModeProps({backgroundColor: "white", color:"black",boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)"})
             document.body.style.backgroundColor = "white"
             document.body.style.color = "black"
-            document.body.style.border = "1px solid black"
+            // document.body.style.border = "1px solid black"
         }
     }
 

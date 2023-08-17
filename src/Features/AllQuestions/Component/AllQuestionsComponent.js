@@ -61,17 +61,17 @@ const AllQuestionsComponent = () => {
             allQuestions.map((ce, index) => {
                 return (
                     <>
-                        <tr key={index}>
-                            <td>{index+1}</td>
-                            <td className='border'>{ce.question}</td>
-                            <td className='text-right'><Button color="primary" onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</Button></td>
+                        <tr className="headingRow" key={index}>
+                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
+                            <td className='text-right'><Button className="btn btn-outline-primary" onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</Button></td>
                             
                         </tr>
                         {
                             expandId === ce.id && showAnswer ? 
-                                <tr className='answer border'>
-                                    <td className='borders'></td> 
-                                    <td>{showAnswer ? ce.answer : null}</td>
+                                <tr className='answer'>
+                                    <td></td> 
+                                    <td className='answer col-md-10'>{showAnswer ? ce.answer : null}</td>
                                     <td></td>
                                 </tr>
                               : null

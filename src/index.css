@@ -72,19 +72,15 @@ code {
 
 }
 
-/* .answer {
-  max-height: 0;
+.answer {
+  /* max-height: 0;
   overflow: hidden;
-  transition: max-height 3.0s ease-in-out;
-} */
+  transition: max-height 0.2s ease-out; */
 
-/* .answer.expanded {
-  max-height: 300px;
-} */
+  overflow: hidden;
+  transition: height 2000ms
 
-/* td, th, tr {
-  border: 1px solid black;
-} */
+}
 
 
 /* CSS for Media */
