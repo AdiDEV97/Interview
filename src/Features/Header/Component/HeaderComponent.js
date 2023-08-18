@@ -14,9 +14,9 @@ const HeaderComponent = () => {
     const handleMode = () => {
         if(mode == "Dark Mode") {
             setMode("Lite Mode")
-            setModeProps({backgroundColor: "rgb(59, 59, 64)", color:"white", boxShadow: "0 4px 8px 0 rgba(225, 225, 225, 0.2)"})
-            document.body.style.backgroundColor = "rgb(59, 59, 64)"
-            document.body.style.color = "white"
+            setModeProps({backgroundColor: "rgb(40, 40, 41)", color:"rgb(206, 206, 219)", boxShadow: "0 4px 8px 0 rgba(225, 225, 225, 0.2)"})
+            document.body.style.backgroundColor = "rgb(40, 40, 41)"
+            document.body.style.color = "rgb(206, 206, 219)"
             // document.body.style.border = "1px solid white"
         }
         else {

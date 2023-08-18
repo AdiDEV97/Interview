@@ -8,8 +8,6 @@ const AllQuestionsComponent = () => {
 
     const [showAnswer, setShowAnswer] = useState(false);
 
-    const [getQuestion, setGetQuestion] = useState("");
-
     const [expandId, setExpandId] = useState(null);
 
     const [buttonText, setButtonText] = useState("Reveal Answer")
@@ -24,11 +22,20 @@ const AllQuestionsComponent = () => {
         });
     }
 
+    // function questionById(id) {
+    //     getQuestionById(id).then((resp) => {
+    //         console.log(resp);
+    //     }).catch(err => {
+    //         console.log(err.response.data);
+    //     })
+    // }
+
     //allQuestionsData();
 
     // Get Data on load of the page
     useEffect(() => {
         allQuestionsData();
+        //questionById(111);
     }, [])
 
 
@@ -71,7 +78,7 @@ const AllQuestionsComponent = () => {
                             expandId === ce.id && showAnswer ? 
                                 <tr className='answer'>
                                     <td></td> 
-                                    <td className='answer col-md-10'>{showAnswer ? ce.answer : null}</td>
+                                    <td className='answer col-md-10' da>{showAnswer ? <p dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
                                     <td></td>
                                 </tr>
                               : null
