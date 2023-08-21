@@ -72,15 +72,15 @@ code {
 
 }
 
-.answer {
-  /* max-height: 0;
+/* .answer {
+  max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out; */
+  transition: max-height 0.2s ease-out;
 
   overflow: hidden;
   transition: height 2000ms
 
-}
+} */
 
 
 /* CSS for Media */
@@ -101,3 +101,11 @@ code {
     text-align: right;
   }
 }
+
+
+/* --------------------- */
+
+
+
+
+

@@ -75,10 +75,10 @@ const AllQuestionsComponent = () => {
                             
                         </tr>
                         {
-                            expandId === ce.id && showAnswer ? 
-                                <tr className='answer'>
-                                    <td></td> 
-                                    <td className='answer col-md-10' da>{showAnswer ? <p dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
+                            expandId === ce.id && showAnswer ?
+                                <tr>
+                                    <td></td>
+                                    <td className={`answer col-md-10`}>{showAnswer ? <p dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
                                     <td></td>
                                 </tr>
                               : null

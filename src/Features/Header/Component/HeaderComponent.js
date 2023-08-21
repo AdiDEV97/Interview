@@ -38,17 +38,17 @@ const HeaderComponent = () => {
         </div>
         <div className='menu-links '>
             <ul>
-                <li className='li1'>
-                    <a href='#'>Home</a>
-                </li>
                 <li className='li2'>
                     <Link to='/all-questions'>All Questions</Link>
                 </li >
+                <li className='li1'>
+                    <Link to='/new-question'>Add Question</Link>
+                </li>
                 <li className='li3'>
                     <a href='#'>Category</a>
                 </li>
                 <li className='li4'>
-                    <a href='#'>Interview</a>
+                    <Link to='/interview'>Interview</Link>
                 </li>
             </ul>
         </div>
