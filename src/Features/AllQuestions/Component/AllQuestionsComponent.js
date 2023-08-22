@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { deleteQuestionByIdApi, getAllQuestions, getQuestionById } from '../../Header/Service/ApiHandler'
+import { useNavigate } from 'react-router-dom';
 
 const AllQuestionsComponent = () => {
 
@@ -10,6 +11,10 @@ const AllQuestionsComponent = () => {
     const [expandId, setExpandId] = useState(null);
 
     const [buttonText, setButtonText] = useState("Reveal Answer")
+
+    const [navigateData, setNavigateData] = useState();
+
+    const navigate = useNavigate();
 
     function allQuestionsData() {
         getAllQuestions().then((resp) => {
@@ -66,6 +71,17 @@ const AllQuestionsComponent = () => {
         deleteQuestion(question_id)
     }
 
+    const handleEditQuestion = (question) => {
+
+        const data = {id: question.id, question: question.question, answer: question.answer, correct: question.correct, category: question.category}
+
+        const navigateTo = () => navigate("/new-question", {state : question});
+
+        //setNavigateData(data);
+        console.log('Data to send - ', question);
+        navigateTo();
+    }
+
 
 
 
@@ -97,7 +113,7 @@ const AllQuestionsComponent = () => {
                                     <div className="dropdown-menu">
                                         {/* Dropdown menu links */}
                                         <button className='dropdown-item' type='button' onClick={() => handleDeleteQuestion(ce.id)}>Delete</button>
-                                        <button className='dropdown-item' type='button'>Edit</button>
+                                        <button className='dropdown-item' type='button' onClick={() => handleEditQuestion(ce)}>Edit</button>
                                     </div>
                                 </div>
 

@@ -1,7 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { addNewQuestionApi, getAllCategories } from '../Service/AddQuestionApiHadler';
+import { useLocation, useNavigate } from 'react-router-dom';
+import JoditEditor from 'jodit-react';
 
 const AddQuestionContainer = () => {
+
+    const editor = useRef(null);
+    const [content, setContent] = useState('');
 
     const [allCategories, setAllCategories] = useState([]);
 
@@ -12,6 +17,17 @@ const AddQuestionContainer = () => {
         answer : ""
         //categoryId : ''
     });
+
+    const [update, setUpdate] = useState(false);
+
+    const [isError, setIsError] = useState(false);
+    const [errors, setErrors] = useState();
+
+    const location = useLocation();
+
+    const navigate = useNavigate();
+
+    const navigateTo = () => {navigate("/all-questions")}
 
     function allCategoriesFunction() {
         getAllCategories().then((resp) => {
@@ -24,6 +40,7 @@ const AddQuestionContainer = () => {
 
     useEffect(() => {
         allCategoriesFunction();
+        console.log('Data1 - ', location.state);
     }, [])
 
     function addNewQuestion(categoryId, newQuestionData) {
@@ -31,7 +48,10 @@ const AddQuestionContainer = () => {
             console.log('Question Data - ');
             console.log(resp);
         }).catch((error) => {
-            console.log(error.response.data.message);
+            setIsError(true);
+            console.log("Errors - ", error.response.data);
+            setErrors(error.response.data);
+            console.log(errors);
         })
     }
 
@@ -50,27 +70,43 @@ const AddQuestionContainer = () => {
         console.log('categoryId - ', value);
     }
 
+    const handleJoditEditor = (data) => {
+        setNewQuestionDetails({...newQuestionDetails, 'answer': data})
+    }
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(newQuestionDetails);
         console.log('CategoryId - ', selectedCategory);
         addNewQuestion(selectedCategory, newQuestionDetails);
-    }
+        setContent('');
+        setNewQuestionDetails({question : "", answer : ""});
+        
+        if(editor.current) {
+            editor.current.value = '';
+            console.log('Content - ', editor.current.value);
+        }
+        // Navigate to All Questions
+        navigateTo();
+    };
 
   return (
     <div>
       <h3 className="display-4">New Question</h3>
 
       <form onSubmit={handleSubmit}>
-        <div className='form-group text-left p-3'>
+        <div className='form-group text-left pl-5 pr-5'>
             <label htmlFor='questionText'><big>Question</big></label>
             <input className='form-control form-control-lg' type='text' id='questionText' placeholder='Write the question here...' name="question" value={newQuestionDetails.question} onChange={handleChange} />
+            {isError ? <p className='text-danger pl-2'>{errors.question}</p> : null}
         </div>
-        <div className='form-group text-left p-3'>
+        <div className='form-group text-left pl-5 pr-5'>
             <label htmlFor='anwserTextAera'><big>Answer</big></label>
-            <textarea className='form-control from-control-lg' id='anwserTextArea' placeholder='Write your answer here...' rows='5' name='answer' value={newQuestionDetails.answer} onChange={handleChange}></textarea>
+            {/* <textarea className='form-control from-control-lg' id='anwserTextArea' placeholder='Write your answer here...' rows='5' name='answer' value={newQuestionDetails.answer} onChange={handleChange}></textarea> */}
+            <JoditEditor id='jodit' ref={editor} value={content} onChange={handleJoditEditor} height="200px" />
+            {isError ? <p className='text-danger pl-2'>{errors.answer}</p> : null}
         </div>
-        <div className='form-group text-left p-3'>
+        <div className='form-group text-left pl-5 pr-5'>
             <label htmlFor='questionCategory'><big>Category</big></label>
             <select htmlFor='questionCategory' className='form-control' onChange={handleChangeCategory}>
                 <option selected disabled>Select...</option>
