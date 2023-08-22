@@ -28,6 +28,7 @@ const AddQuestionContainer = () => {
 
     function addNewQuestion(categoryId, newQuestionData) {
         addNewQuestionApi(categoryId, newQuestionData).then((resp) => {
+            console.log('Question Data - ');
             console.log(resp);
         }).catch((error) => {
             console.log(error.response.data.message);
@@ -37,7 +38,7 @@ const AddQuestionContainer = () => {
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setNewQuestionDetails({...newQuestionDetails, [name] : value.toString()});
+        setNewQuestionDetails({...newQuestionDetails, [name] : value});
         //console.log(newQuestionDetails);
     }
 
@@ -53,9 +54,6 @@ const AddQuestionContainer = () => {
         event.preventDefault();
         console.log(newQuestionDetails);
         console.log('CategoryId - ', selectedCategory);
-        console.log('Type question - ', typeof(newQuestionDetails.question));
-        console.log('Type answer - ', typeof(newQuestionDetails.answer));
-        console.log('Type category - ', typeof(selectedCategory));
         addNewQuestion(selectedCategory, newQuestionDetails);
     }
 
