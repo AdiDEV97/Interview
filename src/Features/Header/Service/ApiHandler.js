@@ -9,3 +9,8 @@ export const getQuestionById = async (question_id) => {
     const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/question/id-${question_id}`, question_id);
     return response.data;
 }
+
+export const deleteQuestionByIdApi = async (question_id) => {
+    const response = performApiRequest.delete(`${BASE_URL}/api/v1/prep/delete/id-${question_id}`, question_id);
+    return response.data;
+}
