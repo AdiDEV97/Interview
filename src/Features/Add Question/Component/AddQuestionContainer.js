@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategories } from '../Service/CategoriesApiHadler';
+import { addNewQuestionApi, getAllCategories } from '../Service/AddQuestionApiHadler';
 
 const AddQuestionContainer = () => {
 
     const [allCategories, setAllCategories] = useState([]);
 
+    const [selectedCategory, setSelectedCategory] = useState();
+
     const [newQuestionDetails, setNewQuestionDetails] = useState({
-        question : '',
-        answer : '',
-        categoryId : ''
+        question : "",
+        answer : ""
+        //categoryId : ''
     });
 
     function allCategoriesFunction() {
@@ -16,7 +18,7 @@ const AddQuestionContainer = () => {
             setAllCategories(resp);
             console.log(allCategories);
         }).catch((error) => {
-            console.log(error);
+            console.log(error.response.data.message);
         })
     }
 
@@ -24,16 +26,37 @@ const AddQuestionContainer = () => {
         allCategoriesFunction();
     }, [])
 
+    function addNewQuestion(categoryId, newQuestionData) {
+        addNewQuestionApi(categoryId, newQuestionData).then((resp) => {
+            console.log(resp);
+        }).catch((error) => {
+            console.log(error.response.data.message);
+        })
+    }
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setNewQuestionDetails({...newQuestionDetails, [name] : value});
+        setNewQuestionDetails({...newQuestionDetails, [name] : value.toString()});
         //console.log(newQuestionDetails);
+    }
+
+    const handleChangeCategory = (event) => {
+        // const name = event.target.name;
+        const value = event.target.value;
+        console.log('CIdType - ', typeof(parseInt(value)));
+        setSelectedCategory(parseInt(value));
+        console.log('categoryId - ', value);
     }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(newQuestionDetails);
+        console.log('CategoryId - ', selectedCategory);
+        console.log('Type question - ', typeof(newQuestionDetails.question));
+        console.log('Type answer - ', typeof(newQuestionDetails.answer));
+        console.log('Type category - ', typeof(selectedCategory));
+        addNewQuestion(selectedCategory, newQuestionDetails);
     }
 
   return (
@@ -51,13 +74,13 @@ const AddQuestionContainer = () => {
         </div>
         <div className='form-group text-left p-3'>
             <label htmlFor='questionCategory'><big>Category</big></label>
-            <select htmlFor='questionCategory' className='form-control' name='categoryId' onChange={handleChange}>
+            <select htmlFor='questionCategory' className='form-control' onChange={handleChangeCategory}>
                 <option selected disabled>Select...</option>
                 {
                     allCategories.map((ce, index) => {
                         return (
                             <option key={index} value={ce.categoryId}>{ce.categoryTitle}</option>
-                        )
+                            )
                     })
                 }
             </select>
