@@ -110,6 +110,53 @@ code {
   left: auto;
 }
 
+.px-14 {
+  padding-right: 140px;
+  padding-left: 140px;
+}
+
+
+/* SCROLLING for Categories Tab */
+.navbars {
+  background-color: #ffffff;
+  color: rgb(19, 21, 23);
+  width: 100%;
+  overflow        : auto;
+  white-space     : nowrap;
+
+  /* Stick Category Bar at Top */
+  display: block;
+  position: sticky; /* Allocates space for the element, but moves it with you when you scroll */
+  top: 0; /* specifies the start position for the sticky behavior - 0 is pretty common */
+  z-index: 1;
+}
+
+.navbars::-webkit-scrollbar {
+  /* width: 0px; */
+  height: 1px;
+}
+
+/* Track */
+.navbars::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+.navbars::-webkit-scrollbar-thumb {
+  
+  background: #888; 
+}
+
+/* Handle on hover */
+.navbars::-webkit-scrollbar-thumb:hover {
+  background: #e49393; 
+  width: 2px;
+}
+
+.navbar-brand:hover {
+  cursor: pointer;
+}
+
 
 
 

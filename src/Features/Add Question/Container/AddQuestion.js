@@ -1,10 +1,10 @@
 import React from 'react'
-import AddQuestionContainer from '../Component/AddQuestionContainer'
+import AddQuestionComponent from '../Component/AddQuestionComponent'
 
 const AddQuestion = () => {
   return (
     <div>
-      <AddQuestionContainer />
+      <AddQuestionComponent />
     </div>
   )
 }

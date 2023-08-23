@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { deleteQuestionByIdApi, getAllQuestions, getQuestionById } from '../../Header/Service/ApiHandler'
-import { useNavigate } from 'react-router-dom';
+import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler'
+import { Link, useNavigate } from 'react-router-dom';
+import { Grid } from '@mui/material';
+import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
 
 const AllQuestionsComponent = () => {
 
     const [allQuestions, setAllQuestions] = useState([]);
+
+    const [allCategories, setAllCategories] = useState([]);
+
+    const [categoryId, setCategoryId] = useState(0);
+
+    const [questionByCategory, setQuestionsByCategory] = useState([]);
+
+    const [selectData, setSelectData] = useState([]);
 
     const [showAnswer, setShowAnswer] = useState(false);
 
@@ -26,6 +36,25 @@ const AllQuestionsComponent = () => {
         });
     }
 
+    const getAllCategories = () => {
+        getAllCategoriesApi().then((resp) => {
+          setAllCategories(resp);
+        }).catch((error) => {
+          console.log(error);
+        })
+      }
+
+      const getQuestionsByCategory = (id) => {
+        setCategoryId(id);
+        setSelectData(questionByCategory);
+        getQuestionsByCategoryApi(id).then((resp) => {
+          console.log(resp);
+          setQuestionsByCategory(resp);
+        }).catch((err) => {
+          console.log('Error - ', err);
+        })
+      }
+
     // function questionById(id) {
     //     getQuestionById(id).then((resp) => {
     //         console.log(resp);
@@ -39,6 +68,9 @@ const AllQuestionsComponent = () => {
     // Get Data on load of the page
     useEffect(() => {
         allQuestionsData();
+        getAllCategories();
+        setSelectData(allQuestions);
+        setCategoryId(0);
     }, [])
 
 
@@ -88,7 +120,38 @@ const AllQuestionsComponent = () => {
   return (
     <div className='my-1'>
       <p className="display-4">Preperation</p>
-      <table className='table'>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+
+
+
+          <div className='categoryTabs'>
+            <nav className='navbars text-justify px-14'>
+              <span className='navbar-brand' to="#" onClick={() => {setCategoryId(0)}}>All</span>
+              {allCategories.map((ce, index) => {  
+                return(
+                  <span className='navbar-brand' to="#" onClick={() => getQuestionsByCategory(ce.categoryId)} key={index}>{ce.categoryTitle}</span>
+                )
+              })}
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
+              
+            </nav>
+          </div>
+        </Grid>
+      <Grid className='table'>
+      <table className='tables'>
         <tr>
             <th>No</th>
             <th>Question</th>
@@ -96,6 +159,43 @@ const AllQuestionsComponent = () => {
         </tr>
         {/* Looping through each question */}
         {
+            categoryId!==0 ? questionByCategory.map((ce, index) => {
+                return (
+                    <>
+                        <tr className="headingRow" key={index}>
+                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
+
+                            <td className='btn-group dropright text-right'>
+                                <div className='btn-group dropend'>
+                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
+
+                                    <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span className="visually-hidden" />
+                                    </button>
+                                    <div className="dropdown-menu">
+                                        {/* Dropdown menu links */}
+                                        <button className='dropdown-item' type='button' onClick={() => handleDeleteQuestion(ce.id)}>Delete</button>
+                                        <button className='dropdown-item' type='button' onClick={() => handleEditQuestion(ce)}>Edit</button>
+                                    </div>
+                                </div>
+
+                                {/* ----------------- */}
+                            </td>
+                            
+                        </tr>
+                        {
+                            expandId === ce.id && showAnswer ?
+                                <tr>
+                                    <td></td>
+                                    <td className={`answer col-md-10 pl-0`}>{showAnswer ? <p dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
+                                    <td></td>
+                                </tr>
+                              : null
+                        }
+                    </>
+                )
+            }) :
             allQuestions.map((ce, index) => {
                 return (
                     <>
@@ -136,6 +236,9 @@ const AllQuestionsComponent = () => {
         }
       </table>
       
+
+      </Grid>
+      </Grid>
     </div>
   )
 }

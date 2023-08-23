@@ -6,7 +6,7 @@ export const addNewQuestionApi = async (categoryId, newQuestionData) => {
     return response.data;
 }
 
-export const getAllCategories = async () => {
+export const getAllCategoriesApi = async () => {
     const response = await performApiRequest.get(`${BASE_URL}/api/v1/category/all-categories`);
     return response.data;
 }

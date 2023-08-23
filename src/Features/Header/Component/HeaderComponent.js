@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 
 const HeaderComponent = () => {
 
@@ -11,8 +11,12 @@ const HeaderComponent = () => {
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)"
     })
 
+    const navigate = useNavigate();
+
+    const passData = () => navigate("/all-questions", {state : modeProps});
+
     const handleMode = () => {
-        if(mode == "Dark Mode") {
+        if(mode === "Dark Mode") {
             setMode("Lite Mode")
             setModeProps({backgroundColor: "rgb(40, 40, 41)", color:"rgb(206, 206, 219)", boxShadow: "0 4px 8px 0 rgba(225, 225, 225, 0.2)"})
             document.body.style.backgroundColor = "rgb(40, 40, 41)"
@@ -28,6 +32,10 @@ const HeaderComponent = () => {
         }
     }
 
+    useEffect(() => {
+        passData();
+    }, [mode])
+
   return (
     <div>
       <nav className='main-nav' style={modeProps}>
@@ -36,16 +44,16 @@ const HeaderComponent = () => {
                 <span className='cap display-4'>I</span>NTERVIEW<span className='cap display-4'>M</span>ASTER
             </h3>
         </div>
-        <div className='menu-links '>
+        <div className='menu-links'>
             <ul>
-                <li className='li2'>
+                <li className='li1'>
                     <Link to='/all-questions'>All Questions</Link>
                 </li >
-                <li className='li1'>
+                <li className='li2'>
                     <Link to='/new-question'>Add Question</Link>
                 </li>
                 <li className='li3'>
-                    <a href='#'>Category</a>
+                    <Link to='/categories'>Category</Link>
                 </li>
                 <li className='li4'>
                     <Link to='/interview'>Interview</Link>

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { addNewQuestionApi, getAllCategories } from '../Service/AddQuestionApiHadler';
+import { addNewQuestionApi, getAllCategoriesApi } from '../Service/AddQuestionApiHadler';
 import { useLocation, useNavigate } from 'react-router-dom';
-import JoditEditor from 'jodit-react';
+import JoditEditor, { Jodit } from 'jodit-react';
 
-const AddQuestionContainer = () => {
+
+const AddQuestionComponent = () => {
 
     const editor = useRef(null);
     const [content, setContent] = useState('');
@@ -30,7 +31,7 @@ const AddQuestionContainer = () => {
     const navigateTo = () => {navigate("/all-questions")}
 
     function allCategoriesFunction() {
-        getAllCategories().then((resp) => {
+        getAllCategoriesApi().then((resp) => {
             setAllCategories(resp);
             console.log(allCategories);
         }).catch((error) => {
@@ -126,4 +127,4 @@ const AddQuestionContainer = () => {
   )
 }
 
-export default AddQuestionContainer
+export default AddQuestionComponent
