@@ -225,7 +225,7 @@ const AllQuestionsComponent = () => {
                             expandId === ce.id && showAnswer ?
                                 <tr>
                                     <td></td>
-                                    <td className={`answer col-md-10 pl-0`}>{showAnswer ? <p dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
+                                    <td className={`answer col-md-10 pl-0`}>{showAnswer ? <p className="border-top-0" dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
                                     <td></td>
                                 </tr>
                               : null
