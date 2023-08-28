@@ -1,87 +1,46 @@
 import React, { useEffect, useState } from 'react'
-import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
-import { getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler';
-import { Grid } from '@mui/material';
-import { Link, useLocation } from 'react-router-dom';
 
 const QuestionsByCategoriesComponent = () => {
 
-  const [allCategories, setAllCategories] = useState([]);
+  const [category, setCategory] = useState({
+    categoryTitle : "",
+    categoryDescription : ""
+  });
 
-  const [categoryId, setCategoryId] = useState(0);
+  const handleOnChange = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
 
-  const [questionByCategory, setQuestionsByCategory] = useState([]);
+    setCategory({...category, [name] : value});
 
-  const location = useLocation();
+    console.log('Category Details - ');
+    console.log(category);
 
-
-
-  const getAllCategories = () => {
-    getAllCategoriesApi().then((resp) => {
-      setAllCategories(resp);
-    }).catch((error) => {
-      console.log(error);
-    })
   }
 
-  const getQuestionsByCategory = (id) => {
-    getQuestionsByCategoryApi(id).then((resp) => {
-      console.log(resp);
-      setQuestionsByCategory(resp);
-    }).catch((err) => {
-      console.log('Error - ', err);
-    })
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('Getting Category Details');
+    console.log(category);
   }
 
-  useEffect(() => {
-    console.log('passed Data - ');
-    console.log(location.state);
-    getAllCategories();
-    
-  }, [location]);
 
   return (
     <div>
-      {/* <h3 className='display-4'>Categories</h3> */}
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
+      <span className='display-4'>Add New Categories</span>
+      <form className='p-5' onSubmit={handleSubmit}>
+        <div className='form-group text-left'>
+          <label htmlFor='categoryTitle'><big>Title</big></label>
+          <input type='text' className='form-control' id='categoryTitle' name='categoryTitle' value={category.categoryTitle} onChange={handleOnChange} />
+        </div>
 
+        <div className='form-group text-left'>
+          <label htmlFor='categoryDescription'><big>Description</big></label>
+          <textarea type='text' className='form-control' id='categoryDescription' rows='5' name='categoryDescription' value={category.categoryDescription} onChange={handleOnChange} />
+        </div>
 
-
-          <div className='categoryTabs'>
-            <nav className='navbars text-justify px-5'>
-              {allCategories.map((ce, index) => {
-                return(
-                  <Link className='navbar-brand' to="#" onClick={() => getQuestionsByCategory(ce.categoryId)}>{ce.categoryTitle}</Link>
-                )
-              })}
-            </nav>
-          </div>
-
-
-
-        </Grid>
-        <Grid item xs={12}>
-          <table className='table'>
-            <tr>
-              <th>No</th>
-              <th>Question</th>
-              <th></th>
-            </tr>
-            {
-              questionByCategory.map((ce, index) => {
-                return(
-                  <tr>
-                    <td>{index+1}</td>
-                    <td>{ce.question}</td>
-                    <td><button type='button' className='btn btn-outline-primary'>Reveal Answer</button></td>
-                  </tr>
-                )
-              })
-            }
-          </table>
-        </Grid>
-      </Grid>
+        <button className='btn btn-outline-primary' type='submit'>Add</button>
+      </form>
     </div>
   )
 }
