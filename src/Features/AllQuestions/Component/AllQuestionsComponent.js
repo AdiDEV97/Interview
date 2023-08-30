@@ -246,7 +246,7 @@ const AllQuestionsComponent = () => {
                         }
                     </>
                 )
-            }) : questionByCategory.length===0 || allQuestions.length===0 ? <p>No Question Found for this Category!!</p> : null
+            }) : questionByCategory.length===0 || allQuestions.length===0 ? <div className='text-lg-center my-5'>No Question Found for this Category!!</div> : null
                 
                 
         }
