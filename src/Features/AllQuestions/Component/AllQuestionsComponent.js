@@ -152,14 +152,23 @@ const AllQuestionsComponent = () => {
         </Grid>
       <Grid className='table'>
       <table className='tables'>
-        <tr>
-            <th>No</th>
-            <th>Question</th>
-            <th></th>
-        </tr>
+        {allQuestions.length!==0 && questionByCategory.length !==0 && (
+            <tr>
+                <th>No</th>
+                <th>Question</th>
+                <th></th>
+            </tr>
+        )}
+        
+        
         {/* Looping through each question */}
         {
-            categoryId!==0 ? questionByCategory.map((ce, index) => {
+            categoryId!==0 && questionByCategory.length !== 0 ? questionByCategory.map((ce, index) => {
+                <tr>
+                    <th>No</th>
+                    <th>Question</th>
+                    <th></th>
+                </tr>
                 return (
                     <>
                         <tr className="headingRow" key={index}>
@@ -196,7 +205,12 @@ const AllQuestionsComponent = () => {
                     </>
                 )
             }) :
-            allQuestions.map((ce, index) => {
+            categoryId===0 && allQuestions.length!==0 ? allQuestions.map((ce, index) => {
+                <tr>
+                    <th>No</th>
+                    <th>Question</th>
+                    <th></th>
+                </tr>
                 return (
                     <>
                         <tr className="headingRow" key={index}>
@@ -232,9 +246,13 @@ const AllQuestionsComponent = () => {
                         }
                     </>
                 )
-            })
+            }) : questionByCategory.length===0 || allQuestions.length===0 ? <p>No Question Found for this Category!!</p> : null
+                
+                
         }
+        
       </table>
+      
       
 
       </Grid>

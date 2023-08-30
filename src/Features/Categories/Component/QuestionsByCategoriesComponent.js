@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { addCategoryApi } from '../Service/CategoryApiHandler';
 
 const QuestionsByCategoriesComponent = () => {
 
@@ -13,15 +14,19 @@ const QuestionsByCategoriesComponent = () => {
 
     setCategory({...category, [name] : value});
 
-    console.log('Category Details - ');
-    console.log(category);
+  }
 
+  function addCategory(categoryData) {
+    addCategoryApi(categoryData).then((resp) => {
+      console.log(resp);
+    }).catch((err) => {
+      console.log(err.response.data);
+    })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Getting Category Details');
-    console.log(category);
+    addCategory(category);
   }
 
 
