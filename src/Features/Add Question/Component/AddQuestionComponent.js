@@ -48,10 +48,11 @@ const AddQuestionComponent = () => {
         addNewQuestionApi(categoryId, newQuestionData).then((resp) => {
             console.log('Question Data - ');
             console.log(resp);
+            navigateTo();
         }).catch((error) => {
             setIsError(true);
             console.log("Errors - ", error.response.data);
-            setErrors(error.response.data);
+            setErrors({question:error.response.data.question, answer:error.response.data.answer});
             console.log(errors);
         })
     }
@@ -88,7 +89,9 @@ const AddQuestionComponent = () => {
             console.log('Content - ', editor.current.value);
         }
         // Navigate to All Questions
-        navigateTo();
+        // if(!errors) {
+        //     navigateTo();
+        // }
     };
 
   return (
