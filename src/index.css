@@ -157,6 +157,16 @@ code {
   cursor: pointer;
 }
 
+.searchField {
+  /* position: absolute; */
+  width: 5%;
+  transition: width 0.3s ease-in-out;
+}
+
+.searchField:focus {
+  width: 20%;
+}
+
 
 
 

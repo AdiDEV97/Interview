@@ -24,6 +24,8 @@ const AllQuestionsComponent = () => {
 
     const [navigateData, setNavigateData] = useState();
 
+    const [searchBarFoucs, setSearchBarFocus] = useState(false);
+
     const navigate = useNavigate();
 
     function allQuestionsData() {
@@ -71,6 +73,7 @@ const AllQuestionsComponent = () => {
         getAllCategories();
         setSelectData(allQuestions);
         setCategoryId(0);
+        window.addEventListener('keydown', handleSearchBox)
     }, [])
 
 
@@ -114,6 +117,12 @@ const AllQuestionsComponent = () => {
         navigateTo();
     }
 
+    const handleSearchBox = (event) => {
+        if(event.key === "/"){
+            document.getElementById('search-bar').focus();
+        }
+    }
+
 
 
 
@@ -127,10 +136,11 @@ const AllQuestionsComponent = () => {
 
           <div className='categoryTabs'>
             <nav className='navbars text-justify px-14'>
-              <span className='navbar-brand' to="#" onClick={() => {setCategoryId(0)}}>All</span>
+              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" />
+              <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
-                  <span className='navbar-brand' to="#" onClick={() => getQuestionsByCategory(ce.categoryId)} key={index}>{ce.categoryTitle}</span>
+                  <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={index}>{ce.categoryTitle}</span>
                 )
               })}
               <p className='navbar-brand'>AAAAAA</p>
