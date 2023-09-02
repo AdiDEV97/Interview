@@ -26,6 +26,8 @@ const AllQuestionsComponent = () => {
 
     const [searchBarFoucs, setSearchBarFocus] = useState(false);
 
+    const [searchWord, setSearchWord] = useState("");
+
     const navigate = useNavigate();
 
     function allQuestionsData() {
@@ -123,6 +125,11 @@ const AllQuestionsComponent = () => {
         }
     }
 
+    const handleOnChangeSearch = (event) => {
+        setSearchWord(event.target.value);
+        console.log('Event1 - ' + searchWord);
+    }
+
 
 
 
@@ -136,7 +143,7 @@ const AllQuestionsComponent = () => {
 
           <div className='categoryTabs'>
             <nav className='navbars text-justify px-14'>
-              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" />
+              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" value={searchWord} onChange={handleOnChangeSearch}/>
               <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
