@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler'
+import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionBySearchApi, getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler'
 import { Link, useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
@@ -27,6 +27,8 @@ const AllQuestionsComponent = () => {
     const [searchBarFoucs, setSearchBarFocus] = useState(false);
 
     const [searchWord, setSearchWord] = useState("");
+
+    const [questionsBySearch, setQuestionsBySearch] = useState([]);
 
     const navigate = useNavigate();
 
@@ -127,7 +129,17 @@ const AllQuestionsComponent = () => {
 
     const handleOnChangeSearch = (event) => {
         setSearchWord(event.target.value);
-        console.log('Event1 - ' + searchWord);
+    }
+
+    const handleSearchClick = () => {
+        // console.log('Word - ', searchWord);
+        searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
+            console.log('resp - ', resp);
+            // console.log('resp - '+ resp);
+            // console.log(resp);
+        }).catch((err) => {
+            console.log('error - ' + err);
+        }))
     }
 
 
@@ -139,11 +151,11 @@ const AllQuestionsComponent = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
 
-
-
           <div className='categoryTabs'>
             <nav className='navbars text-justify px-14'>
               <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" value={searchWord} onChange={handleOnChangeSearch}/>
+              <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span class="material-symbols-outlined">
+search</span></button>
               <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
