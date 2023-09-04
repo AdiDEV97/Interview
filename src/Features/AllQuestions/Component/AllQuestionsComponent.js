@@ -132,10 +132,12 @@ const AllQuestionsComponent = () => {
     }
 
     const handleSearchClick = () => {
-        // console.log('Word - ', searchWord);
+        console.log('Word - ', searchWord);
         searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
             console.log('resp - ', resp);
-            // console.log('resp - '+ resp);
+            setQuestionsBySearch(resp);
+            console.log('Questions By Search - ');
+            console.log(questionsBySearch);
             // console.log(resp);
         }).catch((err) => {
             console.log('error - ' + err);
@@ -275,8 +277,50 @@ search</span></button>
                         }
                     </>
                 )
-            }) : questionByCategory.length===0 || allQuestions.length===0 ? <div className='text-lg-center my-5'>No Question Found for this Category!!</div> : null
-                
+            }) 
+            :
+        /*categoryId!==0 && allQuestions.length!==0 && */searchWord && searchWord!=="" ? questionsBySearch.map((ce, index) => {
+                <tr>
+                    <th>No</th>
+                    <th>Question</th>
+                    <th></th>
+                </tr>
+                return (
+                    <>
+                        <tr className="headingRow" key={index}>
+                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
+
+                            <td className='btn-group dropright text-right'>
+                                <div className='btn-group dropend'>
+                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
+
+                                    <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span className="visually-hidden" />
+                                    </button>
+                                    <div className="dropdown-menu">
+                                        {/* Dropdown menu links */}
+                                        <button className='dropdown-item' type='button' onClick={() => handleDeleteQuestion(ce.id)}>Delete</button>
+                                        <button className='dropdown-item' type='button' onClick={() => handleEditQuestion(ce)}>Edit</button>
+                                    </div>
+                                </div>
+
+                                {/* ----------------- */}
+                            </td>
+                            
+                        </tr>
+                        {
+                            expandId === ce.id && showAnswer ?
+                                <tr>
+                                    <td></td>
+                                    <td className={`answer col-md-10 pl-0`}>{showAnswer ? <p className="border-top-0" dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
+                                    <td></td>
+                                </tr>
+                              : null
+                        }
+                    </>
+                )
+            }) : null
                 
         }
         
