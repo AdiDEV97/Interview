@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionBySearchApi, getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler'
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Grid } from '@mui/material';
 import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
 
@@ -29,6 +30,8 @@ const AllQuestionsComponent = () => {
     const [searchWord, setSearchWord] = useState("");
 
     const [questionsBySearch, setQuestionsBySearch] = useState([]);
+
+    const [serachError, setSearchError] = useState('');
 
     const navigate = useNavigate();
 
@@ -132,16 +135,26 @@ const AllQuestionsComponent = () => {
     }
 
     const handleSearchClick = () => {
-        console.log('Word - ', searchWord);
-        searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
-            console.log('resp - ', resp);
-            setQuestionsBySearch(resp);
-            console.log('Questions By Search - ');
-            console.log(questionsBySearch);
-            // console.log(resp);
-        }).catch((err) => {
-            console.log('error - ' + err);
-        }))
+        if(searchWord!==""){
+            setCategoryId(-1);
+            console.log('Word - ', searchWord);
+            searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
+                // console.log('resp - ', resp);
+                setQuestionsBySearch(resp);
+                console.log('Questions By Search - ');
+                console.log(questionsBySearch);
+                // console.log(resp);
+            }).catch((err) => {
+                console.log('error - ', err.response.data);
+                setSearchError(err.response.data.message);
+            }))
+            
+        }
+        else{
+            
+            console.log({error : "Search field should not be empty!!"});
+            setCategoryId(null);
+        }
     }
 
 
@@ -156,7 +169,7 @@ const AllQuestionsComponent = () => {
           <div className='categoryTabs'>
             <nav className='navbars text-justify px-14'>
               <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" value={searchWord} onChange={handleOnChangeSearch}/>
-              <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span class="material-symbols-outlined">
+              <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
 search</span></button>
               <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
               {allCategories.map((ce, index) => {  
@@ -194,7 +207,7 @@ search</span></button>
         
         {/* Looping through each question */}
         {
-            categoryId!==0 && questionByCategory.length !== 0 ? questionByCategory.map((ce, index) => {
+            categoryId!==0 && categoryId!==-1 && questionByCategory.length !== 0 ? questionByCategory.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -235,8 +248,9 @@ search</span></button>
                         }
                     </>
                 )
-            }) :
-            categoryId===0 && allQuestions.length!==0 ? allQuestions.map((ce, index) => {
+            })
+             :
+            categoryId===0 && allQuestions.length!==0 ? allQuestions.map((ce, index1) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -244,8 +258,8 @@ search</span></button>
                 </tr>
                 return (
                     <>
-                        <tr className="headingRow" key={index}>
-                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                        <tr className="headingRow" key={index1}>
+                            <td className='col-md-1' style={{color:"brown"}}>{index1+1}</td>
                             <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
 
                             <td className='btn-group dropright text-right'>
@@ -273,13 +287,13 @@ search</span></button>
                                     <td className={`answer col-md-10 pl-0`}>{showAnswer ? <p className="border-top-0" dangerouslySetInnerHTML={{__html:ce.answer}}></p> : null}</td>
                                     <td></td>
                                 </tr>
-                              : null
+                              :  null
                         }
                     </>
                 )
-            }) 
+            })
             :
-        /*categoryId!==0 && allQuestions.length!==0 && */searchWord && searchWord!=="" ? questionsBySearch.map((ce, index) => {
+        categoryId===-1 /*&& allQuestions.length!==0*/ && searchWord /*&& searchWord!==""*/ ? questionsBySearch.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -320,7 +334,9 @@ search</span></button>
                         }
                     </>
                 )
-            }) : null
+            })
+            :
+            allQuestions.length===0 || questionByCategory.length===0 || searchWord==="" ? "No Questions Found" : null
                 
         }
         
