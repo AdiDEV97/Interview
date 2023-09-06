@@ -34,7 +34,7 @@ const HeaderComponent = () => {
 
     useEffect(() => {
         passData();
-    }, [mode])
+    }, [])
 
   return (
     <div>

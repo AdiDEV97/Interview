@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionBySearchApi, getQuestionsByCategoryApi } from '../../Header/Service/ApiHandler'
 import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Grid } from '@mui/material';
 import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
 
@@ -31,6 +30,8 @@ const AllQuestionsComponent = () => {
 
     const [questionsBySearch, setQuestionsBySearch] = useState([]);
 
+    const [showError, setShowError] = useState(false);
+
     const [serachError, setSearchError] = useState('');
 
     const navigate = useNavigate();
@@ -58,7 +59,10 @@ const AllQuestionsComponent = () => {
         setSelectData(questionByCategory);
         getQuestionsByCategoryApi(id).then((resp) => {
           console.log(resp);
+          console.log('Id - ', id);
+          console.log('Response Length - ', resp.length);
           setQuestionsByCategory(resp);
+          questionByCategory && console.log('QuestionsByCategory length - ', questionByCategory.length);
         }).catch((err) => {
           console.log('Error - ', err);
         })
@@ -126,35 +130,70 @@ const AllQuestionsComponent = () => {
 
     const handleSearchBox = (event) => {
         if(event.key === "/"){
+            //document.getElementById("search-bar").value="";
             document.getElementById('search-bar').focus();
+
+            //setSearchWord("");
+            // if(document.getElementById("search-bar").value==="/"){
+            //     document.getElementById("search-bar").value="";
+            // }
+        }
+        //var searchValue = document.getElementById("search-bar").value;
+        //searchValue.replace("//", "");
+        if(document.getElementById("search-bar").value.charAt(0)==="/"){
+            document.getElementById("search-bar").value="";
         }
     }
 
     const handleOnChangeSearch = (event) => {
         setSearchWord(event.target.value);
-    }
-
-    const handleSearchClick = () => {
         if(searchWord!==""){
+            setShowError(false);
             setCategoryId(-1);
-            console.log('Word - ', searchWord);
-            searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
+            console.log('Word - ', event.target.value);
+            console.log('TypeOf - ' + typeof(event.target.value));
+            searchWord && (getQuestionBySearchApi(event.target.value.toString()).then((resp) => {
                 // console.log('resp - ', resp);
                 setQuestionsBySearch(resp);
                 console.log('Questions By Search - ');
                 console.log(questionsBySearch);
                 // console.log(resp);
             }).catch((err) => {
+                setShowError(true);
+                setCategoryId(0);
                 console.log('error - ', err.response.data);
+                console.log('error - ', err.response.status);
                 setSearchError(err.response.data.message);
             }))
             
         }
-        else{
-            
-            console.log({error : "Search field should not be empty!!"});
-            setCategoryId(null);
+        else if(searchWord===""){
+            setCategoryId(0);
+            setShowError(false);
         }
+    }
+
+    const handleSearchClick = () => {
+        // if(searchWord!==""){
+        //     setCategoryId(-1);
+        //     console.log('Word - ', searchWord);
+        //     searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
+        //         // console.log('resp - ', resp);
+        //         setQuestionsBySearch(resp);
+        //         console.log('Questions By Search - ');
+        //         console.log(questionsBySearch);
+        //         // console.log(resp);
+        //     }).catch((err) => {
+        //         console.log('error - ', err.response.data);
+        //         setSearchError(err.response.data.message);
+        //     }))
+            
+        // }
+        // else{
+            
+        //     console.log({error : "Search field should not be empty!!"});
+        //     setCategoryId(null);
+        // }
     }
 
 
@@ -168,9 +207,9 @@ const AllQuestionsComponent = () => {
 
           <div className='categoryTabs'>
             <nav className='navbars text-justify px-14'>
-              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="/" value={searchWord} onChange={handleOnChangeSearch}/>
-              <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
-search</span></button>
+              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="click or hit '/' to search" value={searchWord} onChange={handleOnChangeSearch} autoComplete='off'/>
+              {/* <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
+search</span></button> */}
               <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
@@ -195,8 +234,10 @@ search</span></button>
           </div>
         </Grid>
       <Grid className='table'>
+      {showError ? <p className='display-4'>{serachError}</p> : null}
       <table className='tables'>
-        {allQuestions.length!==0 && questionByCategory.length !==0 && (
+        
+        {showError==="false" && allQuestions.length!==0 && questionByCategory.length !==0 && (
             <tr>
                 <th>No</th>
                 <th>Question</th>
@@ -215,6 +256,7 @@ search</span></button>
                 </tr>
                 return (
                     <>
+                        
                         <tr className="headingRow" key={index}>
                             <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
                             <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
@@ -250,7 +292,7 @@ search</span></button>
                 )
             })
              :
-            categoryId===0 && allQuestions.length!==0 ? allQuestions.map((ce, index1) => {
+             showError===false && categoryId===0 && allQuestions.length!==0 || searchWord==="" ? allQuestions.map((ce, index1) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -293,7 +335,7 @@ search</span></button>
                 )
             })
             :
-        categoryId===-1 /*&& allQuestions.length!==0*/ && searchWord /*&& searchWord!==""*/ ? questionsBySearch.map((ce, index) => {
+            categoryId===-1 && searchWord ? questionsBySearch.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -336,12 +378,11 @@ search</span></button>
                 )
             })
             :
-            allQuestions.length===0 || questionByCategory.length===0 || searchWord==="" ? "No Questions Found" : null
+            allQuestions.length===0 || questionByCategory.length===0 ? <p>No Questions Found</p> : null
                 
         }
         
       </table>
-      
       
 
       </Grid>
