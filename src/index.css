@@ -3,7 +3,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing : antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
@@ -13,35 +13,35 @@ code {
 }
 
 .main-nav {
-  width: 100%;
-  height : 6rem;
-  display: grid;
+  width                : 100%;
+  height               : 6rem;
+  display              : grid;
   grid-template-columns: 8rem 1fr 2fr 1fr 1fr;
-  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
-  /* background-color: #36b1e2b1; */
-  /* border: 1px solid black; */
+  /* box-shadow        : 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+  /* background-color  : #36b1e2b1; */
+  /* border            : 1px solid black; */
 }
 
 .logo {
   grid-column: 2/3;
-  color: #6a0ec094;
+  color      : #6a0ec094;
 }
 
-.menu-links  ul{
-  margin-top: 30px;
-  width: 100%;
-  text-decoration: none;
-  list-style-type: none;
-  /* grid-column: 3/4; */
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  font-size: large;
+.menu-links ul {
+  margin-top              : 30px;
+  width                   : 100%;
+  text-decoration         : none;
+  list-style-type         : none;
+  /* grid-column          : 3/4; */
+  display                 : flex;
+  justify-content         : space-around;
+  align-items             : center;
+  font-size               : large;
   /* grid-template-columns: 2rem 1fr 1fr 1fr 1fr 2rem; */
 }
 
-.menu-links li a{
-  color:#544e4e ;
+.menu-links li a {
+  color: #544e4e;
 }
 
 .li1 {
@@ -50,24 +50,24 @@ code {
 
 .about {
   margin-top: 30px;
-  font-size: large;
-  color: #544e4e;
+  font-size : large;
+  color     : #544e4e;
   text-align: right;
 }
 
 .mode {
   /* display: flex; */
-  margin-top: 30px;
+  margin-top  : 30px;
   margin-right: 10px;
-  font-size: large;
-  color: #544e4e;
-  text-align: right;
+  font-size   : large;
+  color       : #544e4e;
+  text-align  : right;
 }
 
 
 .table {
-  width: 80%;
-  text-align: left;
+  width      : 80%;
+  text-align : left;
   margin-left: 10%;
 
 }
@@ -96,8 +96,8 @@ code {
   .mode {
     /* display: flex; */
     margin-top: 30px;
-    font-size: large;
-    /* color: #544e4e; */
+    font-size : large;
+    /* color  : #544e4e; */
     text-align: right;
   }
 }
@@ -107,28 +107,30 @@ code {
 
 .dropdown-menu-right {
   right: 0;
-  left: auto;
+  left : auto;
 }
 
 .px-14 {
   padding-right: 140px;
-  padding-left: 140px;
+  padding-left : 140px;
 }
 
 
 /* SCROLLING for Categories Tab */
 .navbars {
   background-color: #ffffff;
-  color: rgb(19, 21, 23);
-  width: 100%;
+  color           : rgb(19, 21, 23);
+  width           : 100%;
   overflow        : auto;
   white-space     : nowrap;
 
   /* Stick Category Bar at Top */
-  display: block;
-  position: sticky; /* Allocates space for the element, but moves it with you when you scroll */
-  top: 0; /* specifies the start position for the sticky behavior - 0 is pretty common */
-  z-index: 1;
+  display : block;
+  position: sticky;
+  /* Allocates space for the element, but moves it with you when you scroll */
+  top     : 0;
+  /* specifies the start position for the sticky behavior - 0 is pretty common */
+  z-index : 1;
 }
 
 .navbars::-webkit-scrollbar {
@@ -138,19 +140,19 @@ code {
 
 /* Track */
 .navbars::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
 }
- 
+
 /* Handle */
 .navbars::-webkit-scrollbar-thumb {
-  
-  background: #888; 
+
+  background: #888;
 }
 
 /* Handle on hover */
 .navbars::-webkit-scrollbar-thumb:hover {
-  background: #e49393; 
-  width: 2px;
+  background: #e49393;
+  width     : 2px;
 }
 
 .navbar-brand:hover {
@@ -159,7 +161,7 @@ code {
 
 .searchField {
   /* position: absolute; */
-  width: 19%;
+  width     : 19%;
   transition: width 0.3s ease-in-out;
 }
 
@@ -171,3 +173,128 @@ code {
 
 
 
+
+
+
+
+
+
+
+/* TOASTIFY CSS */
+.Toastify__toast--info {
+  /* border       : 1px solid #ea3f3f; */
+  border-radius: 5px !important;
+  /* background   : #df7171 !important; */
+  /* color      : white !important; */
+  width: 60%;
+  height: 5px;
+  position: relative;
+  left: 43%;
+}
+
+.Toastify__toast--info::after {
+  /* content    : url('../assets/images/svg/closeToast.svg'); Your svg Path */
+  position   : absolute;
+  /* color      : #e9e3e3 !important; */
+  font-size  : 15px;
+  font-weight: 700;
+  left       : 200px;
+  padding-top: 14px !important;
+}
+
+.Toastify__toast--info::before {
+  /* content : url("../assets/images/svg/errorToast.svg"); Your svg Path */
+  position: relative;
+  z-index : 100000;
+  left    : 12px;
+  top     : 6px;
+}
+
+/*  */
+.Toastify__toast--error {
+  border       : 1px solid #EB5757;
+  border-radius: 50px !important;
+  background   : #FAE1E2 !important;
+}
+
+.Toastify__toast--error::after {
+  /* content    : url('../assets/images/svg/closeToast.svg'); Your svg Path */
+  position   : absolute;
+  color      : #c29e9e;
+  font-size  : 15px;
+  font-weight: 700;
+  left       : 265px;
+  padding-top: 14px !important;
+}
+
+.Toastify__toast--error::before {
+  /* content : url("../assets/images/svg/errorToast.svg"); Your svg Path */
+  position: relative;
+  z-index : 100000;
+  left    : 12px;
+  top     : 6px;
+}
+
+.Toastify__toast--success {
+  border       : 1px solid #3A9EA5 !important;
+  border-radius: 50px !important;
+  background   : #F0F9FA !important;
+}
+
+.Toastify__toast--success::before {
+  /* content : url("../assets/images/svg/successToast.svg"); Your svg Path */
+  position: relative;
+  z-index : 100000;
+  left    : 12px;
+  top     : 6px;
+}
+
+.Toastify__toast--success::after {
+  /* content    : url('../assets/images/svg/closeToast.svg'); Your svg Path */
+  position   : absolute;
+  color      : #e7dede;
+  font-size  : 15px;
+  font-weight: 700;
+  left       : 265px;
+  padding-top: 14px !important;
+}
+
+.Toastify__toast--warning {
+  border       : 1px solid #E78326 !important;
+  border-radius: 50px !important;
+  background   : #FADFC5 !important;
+}
+
+.Toastify__toast--warning::before {
+  /* content : url("../assets/images/svg/warnToast.svg"); Your svg Path */
+  position: relative;
+  z-index : 100000;
+  left    : 12px;
+  top     : 6px;
+}
+
+.Toastify__toast--warning::after {
+  /* content    : url('../assets/images/svg/closeToast.svg'); Your svg Path */
+  position   : absolute;
+  color      : #E78326;
+  font-size  : 15px;
+  font-weight: 700;
+  left       : 265px;
+  padding-top: 14px !important;
+}
+
+.Toastify__toast-body {
+  color       : #444C63;
+  font-size   : 16px;
+  padding-left: 20px;
+  line-height : 20px;
+  padding     : 0px;
+  padding-top : 25px;
+  width       : 100%;
+  font-weight : 400;
+  margin-left : 25px !important;
+}
+
+.Toastify__toast>button>svg {
+  display: none;
+}

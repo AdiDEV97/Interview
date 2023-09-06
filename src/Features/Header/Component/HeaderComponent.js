@@ -37,8 +37,8 @@ const HeaderComponent = () => {
     }, [])
 
   return (
-    <div>
-      <nav className='main-nav' style={modeProps}>
+    <div style={modeProps}>
+      <nav className='main-nav'>
         <div className='logo'>
             <h3>
                 <span className='cap display-4'>I</span>NTERVIEW<span className='cap display-4'>M</span>ASTER

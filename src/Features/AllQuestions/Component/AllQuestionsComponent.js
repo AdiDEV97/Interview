@@ -3,6 +3,8 @@ import { deleteQuestionByIdApi, getAllQuestions, getQuestionById, getQuestionByS
 import { Link, useNavigate } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHadler';
+import { toast } from 'react-toastify';
+import { dark } from '@mui/material/styles/createPalette';
 
 const AllQuestionsComponent = () => {
 
@@ -34,6 +36,8 @@ const AllQuestionsComponent = () => {
 
     const [serachError, setSearchError] = useState('');
 
+    const [questionsLength, setQuestionsLength] = useState(null);
+
     const navigate = useNavigate();
 
     function allQuestionsData() {
@@ -55,12 +59,17 @@ const AllQuestionsComponent = () => {
       }
 
       const getQuestionsByCategory = (id) => {
+        setSearchWord("");
+        setShowError(false);
         setCategoryId(id);
         setSelectData(questionByCategory);
         getQuestionsByCategoryApi(id).then((resp) => {
           console.log(resp);
           console.log('Id - ', id);
           console.log('Response Length - ', resp.length);
+          ////////////////
+          setQuestionsLength(resp.length);
+          ////////////////
           setQuestionsByCategory(resp);
           questionByCategory && console.log('QuestionsByCategory length - ', questionByCategory.length);
         }).catch((err) => {
@@ -84,8 +93,12 @@ const AllQuestionsComponent = () => {
         getAllCategories();
         setSelectData(allQuestions);
         setCategoryId(0);
-        window.addEventListener('keydown', handleSearchBox)
+        toast.info("Press '/' to search", { position: toast.POSITION.BOTTOM_RIGHT ,icon: false, theme:"dark" });
     }, [])
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleSearchBox)
+    }, [searchWord])
 
 
     const handleRevealAnswer = async (id) => {
@@ -130,17 +143,9 @@ const AllQuestionsComponent = () => {
 
     const handleSearchBox = (event) => {
         if(event.key === "/"){
-            //document.getElementById("search-bar").value="";
             document.getElementById('search-bar').focus();
-
-            //setSearchWord("");
-            // if(document.getElementById("search-bar").value==="/"){
-            //     document.getElementById("search-bar").value="";
-            // }
         }
-        //var searchValue = document.getElementById("search-bar").value;
-        //searchValue.replace("//", "");
-        if(document.getElementById("search-bar").value.charAt(0)==="/"){
+        if(document.getElementById("search-bar") && document.getElementById("search-bar").value.charAt(0)==="/"){
             document.getElementById("search-bar").value="";
         }
     }
@@ -205,17 +210,18 @@ const AllQuestionsComponent = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
 
-          <div className='categoryTabs'>
+          <div>
             <nav className='navbars text-justify px-14'>
-              <input type='search' className='searchField form-control navbar-brand' id='search-bar' placeholder="click or hit '/' to search" value={searchWord} onChange={handleOnChangeSearch} autoComplete='off'/>
+              <input type='search' className='searchField form-control navbar-brand my-3' id='search-bar' placeholder="click or hit '/' to search" value={searchWord} onChange={handleOnChangeSearch} autoComplete='off'/>
               {/* <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
 search</span></button> */}
-              <span className='navbar-brand' to="" onClick={() => {setCategoryId(0)}}>All</span>
+              <span className='navbar-brand' to="" onClick={() => {allQuestionsData();setCategoryId(0);setSearchWord("");setShowError(false);}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
                   <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={index}>{ce.categoryTitle}</span>
                 )
               })}
+              {/* <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
@@ -227,8 +233,7 @@ search</span></button> */}
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p> */}
               
             </nav>
           </div>
@@ -237,7 +242,7 @@ search</span></button> */}
       {showError ? <p className='display-4'>{serachError}</p> : null}
       <table className='tables'>
         
-        {showError==="false" && allQuestions.length!==0 && questionByCategory.length !==0 && (
+        {showError===false && allQuestions.length!==0 && questionByCategory.length !==0 && (
             <tr>
                 <th>No</th>
                 <th>Question</th>
@@ -248,7 +253,7 @@ search</span></button> */}
         
         {/* Looping through each question */}
         {
-            categoryId!==0 && categoryId!==-1 && questionByCategory.length !== 0 ? questionByCategory.map((ce, index) => {
+            showError===false && categoryId!==0 && categoryId!==-1 && questionByCategory.length!==0 ? questionByCategory.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -291,8 +296,10 @@ search</span></button> */}
                     </>
                 )
             })
+             
+                //: showError===true && questionByCategory.length===0 ? "Not FOUND!!"
              :
-             showError===false && categoryId===0 && allQuestions.length!==0 || searchWord==="" ? allQuestions.map((ce, index1) => {
+                showError===false && categoryId===0 && allQuestions.length!==0 || searchWord==='' ? allQuestions.map((ce, index1) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -335,7 +342,7 @@ search</span></button> */}
                 )
             })
             :
-            categoryId===-1 && searchWord ? questionsBySearch.map((ce, index) => {
+            showError===false && categoryId===-1 && searchWord ? questionsBySearch.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -377,8 +384,8 @@ search</span></button> */}
                     </>
                 )
             })
-            :
-            allQuestions.length===0 || questionByCategory.length===0 ? <p>No Questions Found</p> : null
+            : null
+            // questionsLength===0 || allQuestions.length===0 || questionByCategory.length===0 ? <p>No Questions Found...{console.log('length1 - ', categoryId + " --- " + questionByCategory.length)}</p> : null
                 
         }
         
