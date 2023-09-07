@@ -38,6 +38,10 @@ const AllQuestionsComponent = () => {
 
     const [questionsLength, setQuestionsLength] = useState(null);
 
+    const [styleWord, setStyleWord] = useState({
+        background: "yellow"
+    });
+
     const navigate = useNavigate();
 
     function allQuestionsData() {
@@ -346,13 +350,13 @@ search</span></button> */}
                 <tr>
                     <th>No</th>
                     <th>Question</th>
-                    <th></th>
+                    <th></th>   
                 </tr>
                 return (
                     <>
                         <tr className="headingRow" key={index}>
                             <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
-                            <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
+                            <td className='col-md-10 border' style={{color: "brown"}}>{ce.question}</td>
 
                             <td className='btn-group dropright text-right'>
                                 <div className='btn-group dropend'>

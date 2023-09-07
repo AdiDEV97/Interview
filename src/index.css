@@ -169,6 +169,19 @@ code {
   width: 25%;
 }
 
+.timer {
+  position: relative;
+  left: 1000px;
+  bottom: 70px;
+}
+
+.circle {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
 
 
 
