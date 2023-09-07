@@ -170,9 +170,9 @@ code {
 }
 
 .timer {
-  position: relative;
-  left: 1000px;
-  bottom: 70px;
+  position: absolute;
+  left: 1%;
+  top: 15%;
 }
 
 .circle {
@@ -180,6 +180,19 @@ code {
   width: 200px;
   border: 1px solid black;
   border-radius: 100%;
+}
+
+.countDown-circle {
+  height: 40px;
+  width: 40px;
+  border: 2px solid black;
+  border-radius: 100%;
+}
+
+.move-top-right {
+  position: absolute;
+  right: 1%;
+  top : 15%;
 }
 
 
