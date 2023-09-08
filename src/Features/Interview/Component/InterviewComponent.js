@@ -51,7 +51,8 @@ const InterviewComponent = () => {
         setSecondsData(seconds);
       }
       if(seconds<3) {
-        const sound = new Audio("beep-07a.wav");
+        var sound = new Audio("beep-07a.wav");
+        sound.volume = 0.01;
         sound.play().catch((err) => {console.log('Error - ', err);});
       }
       if(seconds===0) {
