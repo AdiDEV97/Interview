@@ -189,10 +189,33 @@ code {
   border-radius: 100%;
 }
 
+.question-icon {
+  height: 25px;
+  width: 25px;
+  border: 1px solid black;
+  border-radius: 100%;
+}
+
+.question-status-chart {
+  height: fit-content !important;
+}
+
 .move-top-right {
   position: absolute;
   right: 1%;
   top : 15%;
+}
+
+.card {
+  height: 300px;
+}
+
+.cardHeading {
+  height: 40%;
+}
+
+.cardQuestion {
+  height: 100%;
 }
 
 
