@@ -98,19 +98,19 @@ const AddQuestionComponent = () => {
     <div>
       <h3 className="display-4">New Question</h3>
 
-      <form onSubmit={handleSubmit}>
-        <div className='form-group text-left pl-5 pr-5'>
+      <form className='pl-5 pr-5' onSubmit={handleSubmit}>
+        <div className='form-group text-left'>
             <label htmlFor='questionText'><big>Question</big></label>
             <input className='form-control form-control-lg' type='text' id='questionText' placeholder='Write the question here...' name="question" value={newQuestionDetails.question} onChange={handleChange} />
             {isError ? <p className='text-danger pl-2'>{errors.question}</p> : null}
         </div>
-        <div className='form-group text-left pl-5 pr-5'>
+        <div className='form-group text-left'>
             <label htmlFor='anwserTextAera'><big>Answer</big></label>
             {/* <textarea className='form-control from-control-lg' id='anwserTextArea' placeholder='Write your answer here...' rows='5' name='answer' value={newQuestionDetails.answer} onChange={handleChange}></textarea> */}
             <JoditEditor id='jodit' ref={editor} value={content} onChange={handleJoditEditor} height="200px" />
             {isError ? <p className='text-danger pl-2'>{errors.answer}</p> : null}
         </div>
-        <div className='form-group text-left pl-5 pr-5'>
+        <div className='form-group text-left'>
             <label htmlFor='questionCategory'><big>Category</big></label>
             <select htmlFor='questionCategory' className='form-control' onChange={handleChangeCategory}>
                 <option selected disabled>Select...</option>

@@ -218,6 +218,20 @@ code {
   height: 100%;
 }
 
+.requisite-from {
+  /* width: 50%; */
+
+}
+
+.topics-div {
+  height: 6rem;
+  border-radius: 5px;
+}
+
+.all-topics {
+  border: 1px solid black;
+  border-radius: 5px;
+}
 
 
 
@@ -226,6 +240,12 @@ code {
 
 
 
+/* TO CENTER DIV */
+.center {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
 
 
 

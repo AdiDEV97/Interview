@@ -11,6 +11,12 @@ const HeaderComponent = () => {
         boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2)"
     })
 
+    const [selectedHeaderTab, setSelectedHeaderTab] = useState("All Questions")
+
+    const [tabHilight, setTabHilight] = useState({
+        fontWeight: "normal"
+    })
+
     const navigate = useNavigate();
 
     const passData = () => navigate("/all-questions", {state : modeProps});
@@ -32,6 +38,15 @@ const HeaderComponent = () => {
         }
     }
 
+    const handleHeaderTabs = (event) => {
+            console.log('selected - ', event.target.name);
+            setSelectedHeaderTab(event.target.name)
+            var currentTab = document.getElementById(event.target.id);
+            console.log('Current Tab - ', currentTab);
+            currentTab.style.fontWeight="bold";
+        }
+        
+
     useEffect(() => {
         passData();
     }, [])
@@ -47,16 +62,16 @@ const HeaderComponent = () => {
         <div className='menu-links'>
             <ul>
                 <li className='li1'>
-                    <Link to='/all-questions'>All Questions</Link>
+                    <Link to='/all-questions' id='all-questions' name={"All Questions"}>All Questions</Link>
                 </li >
                 <li className='li2'>
-                    <Link to='/new-question'>Add Question</Link>
+                    <Link to='/new-question' id='add-questions' name={"Add Question"}>Add Question</Link>
                 </li>
                 <li className='li3'>
-                    <Link to='/categories'>Category</Link>
+                    <Link to='/categories' id='category' name={"Category"}>Category</Link>
                 </li>
                 <li className='li4'>
-                    <Link to='/interview'>Interview</Link>
+                    <Link to='/interview-requisites' id='interview' name={"Interview"}>Interview</Link>
                 </li>
             </ul>
         </div>

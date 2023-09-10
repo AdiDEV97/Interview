@@ -33,7 +33,7 @@ const QuestionsByCategoriesComponent = () => {
   return (
     <div>
       <span className='display-4'>Add New Categories</span>
-      <form className='p-5' onSubmit={handleSubmit}>
+      <form className='center p-5' onSubmit={handleSubmit}>
         <div className='form-group text-left'>
           <label htmlFor='categoryTitle'><big>Title</big></label>
           <input type='text' className='form-control' id='categoryTitle' name='categoryTitle' value={category.categoryTitle} onChange={handleOnChange} />

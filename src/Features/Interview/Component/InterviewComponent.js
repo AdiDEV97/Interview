@@ -77,7 +77,7 @@ const InterviewComponent = () => {
       }
       if(seconds<3) {
         var sound = new Audio("beep-07a.wav");
-        sound.volume = 0.01;
+        sound.volume = 0.05;
         sound.play().catch((err) => {console.log('Error - ', err);});
       }
       if(seconds===0) {
