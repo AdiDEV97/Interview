@@ -24,3 +24,8 @@ export const getQuestionBySearchApi = async (keyword) => {
     const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/search/verdict=${keyword}`, keyword);
     return response.data;
 }
+
+export const getQuestionsByMultipleEntities = async (categories) => {
+    const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/questions-by-selected-topics/categories-${categories}`, categories);
+    return response.data;
+}
