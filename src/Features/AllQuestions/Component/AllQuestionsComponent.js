@@ -214,7 +214,7 @@ const AllQuestionsComponent = () => {
       <Grid container spacing={2}>
         <Grid item xs={12}>
 
-          <div>
+          {/* <div> */}
             <nav className='navbars text-justify px-14'>
               <input type='search' className='searchField form-control navbar-brand my-3' id='search-bar' placeholder="click or hit '/' to search" value={searchWord} onChange={handleOnChangeSearch} autoComplete='off'/>
               {/* <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
@@ -222,10 +222,9 @@ search</span></button> */}
               <span className='navbar-brand' to="" onClick={() => {allQuestionsData();setCategoryId(0);setSearchWord("");setShowError(false);}}>All</span>
               {allCategories.map((ce, index) => {  
                 return(
-                  <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={index}>{ce.categoryTitle}</span>
+                  <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={ce.categoryId}>{ce.categoryTitle}</span>
                 )
               })}
-              {/* <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
@@ -237,10 +236,11 @@ search</span></button> */}
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p> */}
+              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p>
               
             </nav>
-          </div>
+          {/* </div> */}
         </Grid>
       <Grid className='table'>
       {showError ? <p className='display-4'>{serachError}</p> : null}

@@ -118,8 +118,6 @@ code {
 
 /* SCROLLING for Categories Tab */
 .navbars {
-  background-color: #ffffff;
-  color           : rgb(19, 21, 23);
   width           : 100%;
   overflow        : auto;
   white-space     : nowrap;
