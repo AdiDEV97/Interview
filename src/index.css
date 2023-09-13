@@ -221,14 +221,56 @@ code {
 
 } */
 
-.topics-div {
-  height: 6rem;
-  border-radius: 5px;
-}
 
 .all-topics {
   border: 1px solid black;
   border-radius: 5px;
+}
+
+.topics-div {
+  height: 6rem;
+  width: 100%;
+  border-radius: 5px;
+
+  /* overflow-y        : scroll;
+  overflow-x      : hidden;
+  white-space     : nowrap; */
+
+  /* Stick Category Bar at Top */
+  /* display : block;
+  position: sticky; */
+  /* Allocates space for the element, but moves it with you when you scroll */
+  /* top     : 0; */
+  /* specifies the start position for the sticky behavior - 0 is pretty common */
+  z-index : 1;
+}
+
+/*  */
+.topics-div::-webkit-scrollbar {
+  /* width: 0px; */
+  height: 2px;
+  width: 2px;
+}
+
+/* Track */
+.topics-div::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.topics-div::-webkit-scrollbar-thumb {
+
+  background: #888;
+}
+
+/* Handle on hover */
+.topics-div::-webkit-scrollbar-thumb:hover {
+  background: #666363;
+  /* width     : 10px; */
+}
+
+.navbar-brand:hover {
+  cursor: pointer;
 }
 
 

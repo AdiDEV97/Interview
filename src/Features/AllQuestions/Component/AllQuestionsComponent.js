@@ -225,6 +225,7 @@ search</span></button> */}
                   <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={ce.categoryId}>{ce.categoryTitle}</span>
                 )
               })}
+              {/* <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
@@ -236,8 +237,7 @@ search</span></button> */}
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
               <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
+              <p className='navbar-brand'>AAAAAA</p> */}
               
             </nav>
           {/* </div> */}

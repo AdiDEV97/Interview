@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 //import './YourComponent.css'; // Import your CSS file
 
 const InterviewComponent = () => {
@@ -16,7 +17,9 @@ const InterviewComponent = () => {
 
   const [showStatusStyle, setShowStatusStyle] = useState({
     background: "rgb(211, 211, 211)"
-  })
+  });
+
+  const location = useLocation();
 
   const [id, setId] = useState();
 
@@ -49,6 +52,7 @@ const InterviewComponent = () => {
   useEffect(() => {
     let num = Math.floor((Math.random()*56))
     console.log('Random - ', num);
+    console.log('Location - ', location);
   }, [])
 
   const handleCorrect = (id) => {
@@ -134,6 +138,11 @@ const InterviewComponent = () => {
             </Grid>
           </Grid>
         </div>
+        {/* <div>{location.questions.map((ce) => {
+          return (
+            <p>{ce.id}</p>
+          )
+        })}</div> */}
         <button type='button' className='btn btn-outline-primary mx-3' onClick={ handleCorrect}>Correct</button>
         <button type='button' className='btn btn-outline-warning mx-3' onClick={handleWrong}>Wrong</button>
 
