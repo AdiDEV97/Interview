@@ -17,15 +17,12 @@ const InterviewRequisites = () => {
     const [requisite, setRequisite] = useState({
         name: "",
         companyName: "",
-        selectedTopics: [],
         questionCount: "",
         time: ""
     });
 
     const navigate = useNavigate();
     const navigationPath = "/interview";
-
-    const [categoryBasedQues, setCategoryBasedQues] = useState([]);
 
     const [showError, setShowError] = useState(false);
 
@@ -55,18 +52,11 @@ const InterviewRequisites = () => {
     }
 
     const questionByCategories = async (categories) => {
-        categoryBasedQues && getQuestionsByMultipleEntities(categories).then((resp) => {
-            console.log('Questions req - ', resp);
-            setCategoryBasedQues(resp);
-            const newData = resp;
-            setCategoryBasedQues(newData);
-            categoryBasedQues && setRequisite({...requisite, "selectedTopics" : resp});
-            console.log('CategoryBasedQues - ', categoryBasedQues);
+        getQuestionsByMultipleEntities(categories).then((resp) => {
+            navigate(navigationPath, {state: {"response": resp, "req": requisite}});
         }).catch((err) => {
             console.log('Error in questionByCategories - ', err);
         })
-
-        //setRequisite({...requisite, "selectedTopics" : categoryBasedQues});
     }
 
     const handleStartInterview = async (event) => {
@@ -86,13 +76,11 @@ const InterviewRequisites = () => {
             setTopicValidation({message : "*Select atleast one topic!!"});
         }
         else {
-            questionByCategories(myArray);
+            questionByCategories(myArray)
             setShowError(false);
             setShowTopicError(false);
             console.log('Interview Started!!');
             console.log("Requisite - ", requisite);
-            navigate(navigationPath, {state: requisite});
-            
         }
     }
 
@@ -101,16 +89,12 @@ const InterviewRequisites = () => {
     }, [])
 
     const handleSelectTopic = (id) => {
-        // console.log('Selected topic - ', id);
         if(myArray.includes(id)) {
             setMyArray(myArray.filter((ce) => ce!==id));
-            // console.log('Deleted - ', id);
         }
         else {
             setMyArray([...myArray, id]);
-            // console.log('Added - ', id);
         }
-        // console.log('SelectedTopic - ', myArray);
         
         if(topicStyle.backgroundColor==="White") {
         setTopicStyle({backgroundColor: "rgb(90, 170, 253)", color: "white"})
@@ -159,17 +143,6 @@ const InterviewRequisites = () => {
             <input type='text' className='form-control' id='time' placeholder='Your full name' name="time" value={requisite.time} onChange={handleRequisiteChange} />
         </div>
         <button type='submit' className='btn btn-outline-primary'>Start Interview</button>
-        {/* TESITNG */}
-        <p>
-            {requisite.name}
-        </p>
-        <div>
-            {requisite.selectedTopics.map((ce) => {
-                return (
-                    <p>{ce.id}</p>
-                )
-            })}
-        </div>
       </form>
     </div>
   )

@@ -70,7 +70,7 @@ const InterviewComponent = () => {
   function nextQuestion() {
     
     setTimeup("");
-    var seconds = 10;
+    var seconds = parseInt(location.state.req.time);
     const countDown = setInterval(stopWatch, 1000);
     
     function stopWatch(){
@@ -112,29 +112,26 @@ const InterviewComponent = () => {
       <div className='sec_ countDown-circle move-top-right text-center' style={{color: "red", fontWeight: 'bold'}}>{secondsData}</div>
         <p className='borders'>{timeup}</p>
 
-        <div className='containers my-5'>
-          <Grid container spacing={2} className='border'>
-            <Grid item xs={10} className='border'>
-              <div className='card border'>
+        <div className='containers borders my-5'>
+          <Grid container spacing={2} className='borders'>
+            <Grid item xs={10} className='Grid1 borders'>
+              <div className='card borders'>
                 <div className='cardHeading border'>Heading</div>
                 <div className='cardQuestion border'>Question</div>
               </div>
             </Grid>
-            <Grid container item xs={2} className='border'>
+            <Grid container item xs={2} className='borders'>
+              <div className='question-status-chart text-left m-0 border' style={{height:"300px", overflowY:"scroll"}}>
               {
-                statusArray.map((ce) => {
+                location.state.response.map((ce, index) => {
                   return (
                     // <div className='question-status-chart'>
-                    <Grid item xs={3} className='borders'><div className='question-icon' style={showStatusStyle} onClick={()=>{console.log('id - ', ce);}}>{ce+1}</div></Grid>
+                    <span className='text-center borders m-1'><div className='btn m-1 question-icon' style={showStatusStyle} onClick={()=>{console.log('id - ', ce.id);}}>{index+1}</div></span>
                     // </div>
                   )
                 })
               }
-              {/* <Grid item xs={4} className='border'><div className='question-icon' style={showStatusStyle}>1</div></Grid>
-              <Grid item xs={4} className='border'><div className='question-icon' style={showStatusStyle}>2</div></Grid>
-              <Grid item xs={4} className='border'><div className='question-icon' style={showStatusStyle}>3</div></Grid> */}
-            
-            
+            </div>
             </Grid>
           </Grid>
         </div>
