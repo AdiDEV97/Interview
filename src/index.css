@@ -44,6 +44,10 @@ code {
   color: #544e4e;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .li1 {
   grid-column: 2/3;
 }
@@ -62,6 +66,10 @@ code {
   font-size   : large;
   color       : #544e4e;
   text-align  : right;
+}
+
+.mode:hover {
+  cursor: pointer;
 }
 
 
