@@ -128,7 +128,7 @@ const InterviewRequisites = () => {
                 {
                     allTopics.map((ce, index) => {
                         return(
-                            <button type="button" className='all-topics m-2 p-1' id={ce.categoryId} onClick={() => handleSelectTopic(ce.categoryId)} style={myArray && {backgroundColor: myArray.includes(ce.categoryId) ? "rgb(90, 170, 253)" : "White"}} key={index}>{ce.categoryTitle}</button>
+                            <button type="button" className='btn all-topics m-2 p-1' id={ce.categoryId} onClick={() => handleSelectTopic(ce.categoryId)} style={myArray && {backgroundColor: myArray.includes(ce.categoryId) ? "rgb(90, 170, 253)" : "White"}} key={index}>{ce.categoryTitle}</button>
                         )
                     })
                 }
