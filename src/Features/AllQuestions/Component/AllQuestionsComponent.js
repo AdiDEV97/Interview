@@ -97,7 +97,7 @@ const AllQuestionsComponent = () => {
         getAllCategories();
         setSelectData(allQuestions);
         setCategoryId(0);
-        toast.info("Press '/' to search", { position: toast.POSITION.BOTTOM_RIGHT ,icon: false, theme:"dark" });
+        toast.info("Press '/' to search", { position: toast.POSITION.BOTTOM_RIGHT ,icon: false, theme: "dark"});
     }, [])
 
     useEffect(() => {

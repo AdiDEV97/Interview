@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       {/* <h3>Interview Master</h3> */}
-      <ToastContainer autoClose={5000} hideProgressBar theme="coloured" />
+      <ToastContainer autoClose={5000} hideProgressBar />
       <Header />
       <Routers />
     </div>
