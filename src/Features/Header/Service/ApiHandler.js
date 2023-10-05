@@ -25,7 +25,12 @@ export const getQuestionBySearchApi = async (keyword) => {
     return response.data;
 }
 
-export const getQuestionsByMultipleEntities = async (categories) => {
-    const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/questions-by-selected-topics/categories-${categories}`, categories);
-    return response.data;
+export const getQuestionsByMultipleEntities = async (data) => {
+    console.log('Data from API HANDLER - ', data);
+
+    const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/questions-by-selected-topics?interviewerName=${data.interviewerName}&companyName=${data.companyName}&selectedTopics=${data.selectedTopics}, 6&questionCount=${data.questionCount}&time=${data.time}`);
+
+    return {info: data, questions: response.data};
+    //return response
+
 }

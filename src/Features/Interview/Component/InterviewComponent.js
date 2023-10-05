@@ -70,7 +70,7 @@ const InterviewComponent = () => {
   function nextQuestion() {
     
     setTimeup("");
-    var seconds = parseInt(location.state.req.time);
+    var seconds = parseInt(location.state.info.time);
     const countDown = setInterval(stopWatch, 1000);
     
     function stopWatch(){
@@ -123,7 +123,7 @@ const InterviewComponent = () => {
             <Grid container item xs={2} className='borders'>
               <div className='question-status-chart text-left m-0 border' style={{height:"300px", overflowY:"scroll"}}>
               {
-                location.state.response.map((ce, index) => {
+                location.state.questions.map((ce, index) => {
                   return (
                     // <div className='question-status-chart'>
                     <span className='text-center borders m-1'><div className='btn m-1 question-icon' style={showStatusStyle} onClick={()=>{console.log('id - ', ce.id);}}>{index+1}</div></span>

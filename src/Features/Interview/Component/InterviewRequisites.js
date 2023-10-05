@@ -9,16 +9,19 @@ const InterviewRequisites = () => {
 
     const [myArray, setMyArray] = useState([]);
 
+    const arr = [];
+
     const [topicStyle, setTopicStyle] = useState({
         backgroundColor: "White",
         color: "black"
     })
 
     const [requisite, setRequisite] = useState({
-        name: "",
+        interviewerName: "",
         companyName: "",
-        questionCount: "",
-        time: ""
+        selectedTopics: [],
+        questionCount: null,
+        time: null
     });
 
     const navigate = useNavigate();
@@ -51,9 +54,13 @@ const InterviewRequisites = () => {
         })
     }
 
-    const questionByCategories = async (categories) => {
-        getQuestionsByMultipleEntities(categories).then((resp) => {
-            navigate(navigationPath, {state: {"response": resp, "req": requisite}});
+    const questionByCategories = async (data) => {
+        //console.log('DATA TO SEND - ', data);
+        getQuestionsByMultipleEntities(data).then((resp) => {
+            console.log('Resp -->', resp);
+            //navigate(navigationPath, {state: {"response": resp, "req": requisite}});
+            navigate(navigationPath, {state: resp});
+            
         }).catch((err) => {
             console.log('Error in questionByCategories - ', err);
         })
@@ -61,7 +68,7 @@ const InterviewRequisites = () => {
 
     const handleStartInterview = async (event) => {
         event.preventDefault();
-        const getNameValue = document.getElementById("name").value;
+        const getNameValue = document.getElementById("interviewerName").value;
         const getCompanyNameValue = document.getElementById("company").value;
         const getQuestionsValue = document.getElementById("question-count").value;
         const getTimeValue = document.getElementById("time").value;
@@ -76,11 +83,12 @@ const InterviewRequisites = () => {
             setTopicValidation({message : "*Select atleast one topic!!"});
         }
         else {
-            questionByCategories(myArray)
+            questionByCategories(requisite)
             setShowError(false);
             setShowTopicError(false);
             console.log('Interview Started!!');
             console.log("Requisite - ", requisite);
+            //console.log('ARRRRRRRRR - ', [1,2,3,4,5,6]);
         }
     }
 
@@ -91,9 +99,19 @@ const InterviewRequisites = () => {
     const handleSelectTopic = (id) => {
         if(myArray.includes(id)) {
             setMyArray(myArray.filter((ce) => ce!==id));
+            console.log("Selected Categories - ", myArray);
+            arr.push(myArray.filter((ce) => ce!==id))
+            console.log("ARR - ", arr);
+            
         }
         else {
             setMyArray([...myArray, id]);
+            arr.push(...myArray, id);
+            console.log("ARR - ", arr);
+            //setRequisite({...requisite, 'selectedTopics':[...myArray, id]})
+            //setRequisite({...requisite.selectedTopics, ['selectedTopics']: id});
+            console.log("Selected Categories - ", myArray);
+            setRequisite({...requisite, 'selectedTopics':arr});
         }
         
         if(topicStyle.backgroundColor==="White") {
@@ -114,8 +132,8 @@ const InterviewRequisites = () => {
 
       <form className='requisite-from center' onSubmit={handleStartInterview}>
         <div className='form-group text-left'>
-            <label htmlFor='name'><big>Name</big></label>
-            <input type='text' className='form-control' id='name' placeholder='Your full name' name="name" value={requisite.name} onChange={handleRequisiteChange} />
+            <label htmlFor='interviewerName'><big>Name</big></label>
+            <input type='text' className='form-control' id='interviewerName' placeholder='Your full name' name="interviewerName" value={requisite.interviewerName} onChange={handleRequisiteChange} />
         </div>
         <div className='form-group text-left'>
             <label htmlFor='company'><big>Company Name</big></label>
