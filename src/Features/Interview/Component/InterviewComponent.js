@@ -13,20 +13,17 @@ const InterviewComponent = () => {
 
   const [secondsData, setSecondsData] = useState(0);
 
-  const [timeup, setTimeup] = useState("");
-
   const [showStatusStyle, setShowStatusStyle] = useState({
     background: "rgb(211, 211, 211)"
   });
 
   const location = useLocation();
 
-  const [id, setId] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [count, setCount] = useState(0);
 
   const time = new Date();
-
-  // console.log('time - ');
-  // console.log(time);
 
   const statusArray = []
 
@@ -35,7 +32,6 @@ const InterviewComponent = () => {
   }
 
   useEffect(() => {
-    setTimeup("");
 
     const intervalId = setInterval(() => {
       const time = new Date()
@@ -49,50 +45,65 @@ const InterviewComponent = () => {
     return () => clearInterval(intervalId);
   }, [])
 
-  useEffect(() => {
-    let num = Math.floor((Math.random()*56))
-    console.log('Random - ', num);
-    console.log('Location - ', location);
-  }, [])
+  // useEffect(() => {
+  //   let num = Math.floor((Math.random()*56))
+  //   console.log('Random - ', num);
+  //   console.log('Location - ', location);
+  // }, [])
 
-  const handleCorrect = (id) => {
+  const handleCorrect = () => {
     let num = Math.floor((Math.random()*56))
     console.log('Random - ', num);
     setShowStatusStyle({background: "rgb(150, 200, 255)"})
   }
 
-  const handleWrong = (id) => {
+  const handleWrong = () => {
     setShowStatusStyle({background: "rgb(211, 100, 100)"})
   }
 
-  //const sound = new Audio("D:\My Projects\interview_master\public\beep-07a.wav");
 
   function nextQuestion() {
     
-    setTimeup("");
-    var seconds = parseInt(location.state.info.time);
-    const countDown = setInterval(stopWatch, 1000);
     
-    function stopWatch(){
-      
-      if(seconds!==0){
-        seconds--;
-        setSecondsData(seconds);
+      var seconds = parseInt(location.state.info.time);
+      const countDown = setInterval(stopWatch, 1000);
+
+      function stopWatch(){
+
+        if(seconds!==0){
+          seconds--;
+          setSecondsData(seconds);
+        }
+        if(seconds<3) {
+          var sound = new Audio("beep-07a.wav");
+          sound.volume = 0.05;
+          sound.play().catch((err) => {console.log('Error - ', err);});
+        }
+        if(seconds===0) {
+          clearInterval(countDown);
+          console.log('Repeat!!!');
+          setCount(count+1);
+          console.log('Count1 - ', count);
+        }
+
+
       }
-      if(seconds<3) {
-        var sound = new Audio("beep-07a.wav");
-        sound.volume = 0.05;
-        sound.play().catch((err) => {console.log('Error - ', err);});
-      }
-      if(seconds===0) {
-        clearInterval(countDown);
-        setTimeup("TIME UP");
-        let num = Math.floor((Math.random()*56))
-        console.log('Random - ', num);
-      }
-    }
     
   };
+
+  // useEffect(() => {
+  //     if(count<3) {
+  //       const repeat = setInterval(() => {
+  //         nextQuestion();
+  //         console.log('Count - ', count);
+  //       }, 10000)
+        
+  //     }
+  // }, [])
+
+  // for(let s=0; s<3; s++) {
+  //   nextQuestion();
+  // }
 
   return (
     <div className="container">
@@ -109,15 +120,18 @@ const InterviewComponent = () => {
           <td className='sec_ border p-2' style={{color: "red"}}>{currentTime.sec}</td>
         </tr>
       </table></small>
+      
       <div className='sec_ countDown-circle move-top-right text-center' style={{color: "red", fontWeight: 'bold'}}>{secondsData}</div>
-        <p className='borders'>{timeup}</p>
 
         <div className='containers borders my-5'>
           <Grid container spacing={2} className='borders'>
             <Grid item xs={10} className='Grid1 borders'>
               <div className='card borders'>
                 <div className='cardHeading border'>Heading</div>
-                <div className='cardQuestion border'>Question</div>
+                <div className='cardQuestion border'>
+                  {
+                  }
+                </div>
               </div>
             </Grid>
             <Grid container item xs={2} className='borders'>
@@ -140,7 +154,7 @@ const InterviewComponent = () => {
             <p>{ce.id}</p>
           )
         })}</div> */}
-        <button type='button' className='btn btn-outline-primary mx-3' onClick={ handleCorrect}>Correct</button>
+        <button type='button' className='btn btn-outline-primary mx-3' onClick={handleCorrect}>Correct</button>
         <button type='button' className='btn btn-outline-warning mx-3' onClick={handleWrong}>Wrong</button>
 
 
