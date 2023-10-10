@@ -21,7 +21,15 @@ const InterviewComponent = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  //let currentIndex = 0;
+
   const [count, setCount] = useState(0);
+
+  const [btn, setBtn] = useState("Next")
+
+  const [isDisable, setIsDisable] = useState(false)
+
+  const arrSize = location.state.questions.length
 
   const time = new Date();
 
@@ -41,7 +49,7 @@ const InterviewComponent = () => {
       sec: time.getSeconds()
     })
     }, 1000);
-
+  
     return () => clearInterval(intervalId);
   }, [])
 
@@ -63,31 +71,44 @@ const InterviewComponent = () => {
 
 
   function nextQuestion() {
-    
-    
-      var seconds = parseInt(location.state.info.time);
-      const countDown = setInterval(stopWatch, 1000);
 
-      function stopWatch(){
+    setIsDisable(true);
+  
+    var seconds = parseInt(location.state.info.time);
+    const countDown = setInterval(stopWatch, 1000);
 
-        if(seconds!==0){
-          seconds--;
-          setSecondsData(seconds);
-        }
-        if(seconds<3) {
-          var sound = new Audio("beep-07a.wav");
-          sound.volume = 0.05;
-          sound.play().catch((err) => {console.log('Error - ', err);});
-        }
-        if(seconds===0) {
-          clearInterval(countDown);
-          console.log('Repeat!!!');
-          setCount(count+1);
-          console.log('Count1 - ', count);
-        }
-
-
+    function stopWatch(){
+      if(seconds!==0){
+        seconds--;
+        setSecondsData(seconds);
       }
+      if(seconds<3) {
+        var sound = new Audio("beep-07a.wav");
+        sound.volume = 0.05;
+        sound.play().catch((err) => {console.log('Error - ', err);});
+      }
+      if(seconds===0) {
+        clearInterval(countDown);
+        //console.log('Repeat!!!');
+        setCount(count+1);
+        //console.log('Count1 - ', count);
+        setIsDisable(false)
+      }
+
+
+    }
+
+    
+    if(currentIndex+1 <= arrSize-1) {
+      setCurrentIndex(currentIndex+1)
+    }
+    if(currentIndex+1 === arrSize-1){
+      console.log("That's all folks");
+      setBtn("Result")
+    }
+    
+    console.log("CurrentIndex = ", currentIndex, " || arrSize = ", arrSize-1, " ==== ", currentIndex===arrSize-1);
+    console.log('Length - ', arrSize);
     
   };
 
@@ -127,10 +148,14 @@ const InterviewComponent = () => {
           <Grid container spacing={2} className='borders'>
             <Grid item xs={10} className='Grid1 borders'>
               <div className='card borders'>
-                <div className='cardHeading border'>Heading</div>
+                <div className='cardHeading text-center border'>
+                  <Grid className='cardHeading border' container spacing={0} height={100}>
+                    <Grid item xs={6}><big><p className="text-left mx-4 my-4">Candidate Name - {location.state.info.interviewerName}</p></big></Grid>
+                    <Grid item xs={6}><big><p className="text-right mx-4 my-4">Company - {location.state.info.companyName}</p></big></Grid>
+                  </Grid>
+                </div>
                 <div className='cardQuestion border'>
-                  {
-                  }
+                    <p className="text-center my-4" style={{fontSize:'30px'}}>{location.state.questions[currentIndex].question}</p>
                 </div>
               </div>
             </Grid>
@@ -158,7 +183,7 @@ const InterviewComponent = () => {
         <button type='button' className='btn btn-outline-warning mx-3' onClick={handleWrong}>Wrong</button>
 
 
-        <button type='button' className='btn btn-outline-secondary' onClick={nextQuestion}>Next</button>
+        <button type='button' className='btn btn-outline-secondary mx-3' onClick={nextQuestion} disabled={isDisable}>{btn}</button>
 
 
       {/* <div className='circle my-5'></div> */}

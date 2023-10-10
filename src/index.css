@@ -246,6 +246,7 @@ a:hover {
   height: 40%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  background-color: #a6a2a2;
 }
 
 .cardQuestion {
