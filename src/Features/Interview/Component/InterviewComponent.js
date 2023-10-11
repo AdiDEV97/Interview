@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 //import './YourComponent.css'; // Import your CSS file
 
 const InterviewComponent = () => {
@@ -29,11 +29,21 @@ const InterviewComponent = () => {
 
   const [isDisable, setIsDisable] = useState(false)
 
+  const [resultData, setResultData] = useState([]);
+
+  var data = [];
+
   const arrSize = location.state.questions.length
+
+  const navigate = useNavigate();
+  const navigationPath = "/result";
 
   const time = new Date();
 
   const statusArray = []
+
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
 
   for(let i=0; i<30; i++){
     statusArray.push(i);
@@ -59,13 +69,17 @@ const InterviewComponent = () => {
   //   console.log('Location - ', location);
   // }, [])
 
-  const handleCorrect = () => {
-    let num = Math.floor((Math.random()*56))
-    console.log('Random - ', num);
+  const handleCorrect = (question) => {
+    setCorrect(correct+1);
+    setResultData([...resultData, {"question":question, "status":true}])
+    console.log('Correct id - ', question.id);
     setShowStatusStyle({background: "rgb(150, 200, 255)"})
   }
 
-  const handleWrong = () => {
+  const handleWrong = (question) => {
+    setWrong(wrong+1);
+    setResultData([...resultData, {"question":question, "status":false}])
+    console.log('Wrong id - ', question.id);
     setShowStatusStyle({background: "rgb(211, 100, 100)"})
   }
 
@@ -83,18 +97,17 @@ const InterviewComponent = () => {
         setSecondsData(seconds);
       }
       if(seconds<3) {
-        var sound = new Audio("beep-07a.wav");
-        sound.volume = 0.05;
-        sound.play().catch((err) => {console.log('Error - ', err);});
+        if(btn === "Next") {
+          var sound = new Audio("beep-07a.wav");
+          sound.volume = 0.05;
+          sound.play().catch((err) => {console.log('Error - ', err);});
+        }
       }
       if(seconds===0) {
         clearInterval(countDown);
-        //console.log('Repeat!!!');
         setCount(count+1);
-        //console.log('Count1 - ', count);
         setIsDisable(false)
       }
-
 
     }
 
@@ -106,25 +119,18 @@ const InterviewComponent = () => {
       console.log("That's all folks");
       setBtn("Result")
     }
+
+    if(btn==="Result") {
+      console.log('ResultData - ', resultData);
+      console.log('ResultData11 - ', data);
+      navigate(navigationPath, {state: {"data": resultData, "correct":correct, "wrong":wrong}});
+    }
+    console.log('ResultData11 - ', data);
     
-    console.log("CurrentIndex = ", currentIndex, " || arrSize = ", arrSize-1, " ==== ", currentIndex===arrSize-1);
-    console.log('Length - ', arrSize);
+    //console.log("CurrentIndex = ", currentIndex, " || arrSize = ", arrSize-1, " ==== ", currentIndex===arrSize-1);
+    //console.log('Length - ', arrSize);
     
   };
-
-  // useEffect(() => {
-  //     if(count<3) {
-  //       const repeat = setInterval(() => {
-  //         nextQuestion();
-  //         console.log('Count - ', count);
-  //       }, 10000)
-        
-  //     }
-  // }, [])
-
-  // for(let s=0; s<3; s++) {
-  //   nextQuestion();
-  // }
 
   return (
     <div className="container">
@@ -179,8 +185,8 @@ const InterviewComponent = () => {
             <p>{ce.id}</p>
           )
         })}</div> */}
-        <button type='button' className='btn btn-outline-primary mx-3' onClick={handleCorrect}>Correct</button>
-        <button type='button' className='btn btn-outline-warning mx-3' onClick={handleWrong}>Wrong</button>
+        <button type='button' className='btn btn-outline-primary mx-3' onClick={() => handleCorrect(location.state.questions[currentIndex])}>Correct</button>
+        <button type='button' className='btn btn-outline-warning mx-3' onClick={() => handleWrong(location.state.questions[currentIndex])}>Wrong</button>
 
 
         <button type='button' className='btn btn-outline-secondary mx-3' onClick={nextQuestion} disabled={isDisable}>{btn}</button>

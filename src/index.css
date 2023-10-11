@@ -315,6 +315,12 @@ a:hover {
   padding: 10px;
 }
 
+.center1 {
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+}
+
 
 
 /* TOASTIFY CSS */
@@ -434,4 +440,20 @@ a:hover {
 
 .Toastify__toast>button>svg {
   display: none;
+}
+
+.resultBoard {
+  display: inline-block;
+  height: 35%;
+  width: 35%;
+  /* border: 1px solid rgb(188, 186, 186); */
+  /* margin-top: auto; */
+  /* margin-bottom: auto;
+  text-align: center; */
+  /* padding-top: 3%; */
+  align-items: center;
+}
+
+@keyframes html-progress {
+  to { --progress-value: 92; }
 }

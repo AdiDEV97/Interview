@@ -20,8 +20,8 @@ const InterviewRequisites = () => {
         interviewerName: "",
         companyName: "",
         selectedTopics: [],
-        questionCount: null,
-        time: null
+        questionCount: "",
+        time: ""
     });
 
     const navigate = useNavigate();

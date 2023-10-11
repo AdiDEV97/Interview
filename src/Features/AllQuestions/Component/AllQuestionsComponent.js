@@ -182,31 +182,6 @@ const AllQuestionsComponent = () => {
         }
     }
 
-    const handleSearchClick = () => {
-        // if(searchWord!==""){
-        //     setCategoryId(-1);
-        //     console.log('Word - ', searchWord);
-        //     searchWord && (getQuestionBySearchApi(searchWord).then((resp) => {
-        //         // console.log('resp - ', resp);
-        //         setQuestionsBySearch(resp);
-        //         console.log('Questions By Search - ');
-        //         console.log(questionsBySearch);
-        //         // console.log(resp);
-        //     }).catch((err) => {
-        //         console.log('error - ', err.response.data);
-        //         setSearchError(err.response.data.message);
-        //     }))
-            
-        // }
-        // else{
-            
-        //     console.log({error : "Search field should not be empty!!"});
-        //     setCategoryId(null);
-        // }
-    }
-
-
-
 
   return (
     <div className='my-1'>
@@ -225,19 +200,6 @@ search</span></button> */}
                   <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={ce.categoryId}>{ce.categoryTitle}</span>
                 )
               })}
-              {/* <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p>
-              <p className='navbar-brand'>AAAAAA</p> */}
               
             </nav>
           {/* </div> */}
@@ -303,7 +265,7 @@ search</span></button> */}
              
                 //: showError===true && questionByCategory.length===0 ? "Not FOUND!!"
              :
-                showError===false && categoryId===0 && allQuestions.length!==0 || searchWord==='' ? allQuestions.map((ce, index1) => {
+                showError===false && categoryId===0 && allQuestions.length!==0 || searchWord==='' ? allQuestions.map((ce, index) => {
                 <tr>
                     <th>No</th>
                     <th>Question</th>
@@ -311,8 +273,8 @@ search</span></button> */}
                 </tr>
                 return (
                     <>
-                        <tr className="headingRow" key={index1}>
-                            <td className='col-md-1' style={{color:"brown"}}>{index1+1}</td>
+                        <tr className="headingRow" key={index}>
+                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
                             <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
 
                             <td className='btn-group dropright text-right'>
