@@ -34,3 +34,13 @@ export const getQuestionsByMultipleEntities = async (data) => {
     //return response
 
 }
+
+export const changeQuestionStatus = async (question_id, data) => {
+    console.log('Status --> ', data);
+
+    const response = await performApiRequest.put(`${BASE_URL}/api/v1/prep/update-status/id-${question_id}`, data, {headers: {'Content-Type': 'text/plain'}});
+
+    console.log('RESPONSE FROM STATUS ----------- ', response);
+
+    return response
+}

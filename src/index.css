@@ -457,3 +457,11 @@ a:hover {
 @keyframes html-progress {
   to { --progress-value: 92; }
 }
+
+.circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-width: 1px;
+  padding: 1% 8%;
+}

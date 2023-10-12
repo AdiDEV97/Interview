@@ -1,7 +1,6 @@
 import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-//import './YourComponent.css'; // Import your CSS file
 
 const InterviewComponent = () => {
 
@@ -20,8 +19,6 @@ const InterviewComponent = () => {
   const location = useLocation();
 
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  //let currentIndex = 0;
 
   const [count, setCount] = useState(0);
 
@@ -42,15 +39,23 @@ const InterviewComponent = () => {
 
   const statusArray = []
 
-  const [correct, setCorrect] = useState(0);
-  const [wrong, setWrong] = useState(0);
+  const [correctArr, setCorrectArr] = useState([]);
+  const [wrongArr, setWrongArr] = useState([]);
+
+  const [newResultData, setNewResultData] = useState([]);
 
   for(let i=0; i<30; i++){
     statusArray.push(i);
   }
 
   useEffect(() => {
-
+    console.log('Location Data - ', location);
+    console.log('RESULTDATA =========>> ', resultData);
+    location.state.questions.forEach((question) => {
+      question.status = "Not Attempted"
+    })
+    setResultData(location.state.questions);
+    console.log('Data After add status --------> ', location);
     const intervalId = setInterval(() => {
       const time = new Date()
       setCurrentTime({
@@ -63,24 +68,30 @@ const InterviewComponent = () => {
     return () => clearInterval(intervalId);
   }, [])
 
-  // useEffect(() => {
-  //   let num = Math.floor((Math.random()*56))
-  //   console.log('Random - ', num);
-  //   console.log('Location - ', location);
-  // }, [])
 
   const handleCorrect = (question) => {
-    setCorrect(correct+1);
-    setResultData([...resultData, {"question":question, "status":true}])
+    resultData.map((ce) => {
+      if(ce.id === question.id) {
+        ce.status = "true"
+      }
+    })
+    
     console.log('Correct id - ', question.id);
     setShowStatusStyle({background: "rgb(150, 200, 255)"})
   }
 
+
+
   const handleWrong = (question) => {
-    setWrong(wrong+1);
-    setResultData([...resultData, {"question":question, "status":false}])
+
+    resultData.map((ce) => {
+      if(ce.id === question.id) {
+        ce.status = "false"
+      }
+    })
+    
     console.log('Wrong id - ', question.id);
-    setShowStatusStyle({background: "rgb(211, 100, 100)"})
+    setShowStatusStyle({background: "rgb(210, 100, 100)"})
   }
 
 
@@ -122,13 +133,27 @@ const InterviewComponent = () => {
 
     if(btn==="Result") {
       console.log('ResultData - ', resultData);
+
+      var correct = 0;
+      var wrong = 0;
+      var notAttempted = 0;
+      resultData.forEach((ce) => {
+        console.log('CE.Status ----> ', ce.status);
+        if(ce.status === "true") {
+          correct += 1
+        }
+        else if(ce.status === "false") {
+          wrong += 1
+        }
+        else if(ce.status === "Not Attempted") {
+          notAttempted += 1
+        }
+      })
+
       console.log('ResultData11 - ', data);
-      navigate(navigationPath, {state: {"data": resultData, "correct":correct, "wrong":wrong}});
+      navigate(navigationPath, {state: {"data": resultData, "correct":correct, "wrong":wrong, "notAttempted": notAttempted}});
     }
     console.log('ResultData11 - ', data);
-    
-    //console.log("CurrentIndex = ", currentIndex, " || arrSize = ", arrSize-1, " ==== ", currentIndex===arrSize-1);
-    //console.log('Length - ', arrSize);
     
   };
 
@@ -170,9 +195,7 @@ const InterviewComponent = () => {
               {
                 location.state.questions.map((ce, index) => {
                   return (
-                    // <div className='question-status-chart'>
                     <span className='text-center borders m-1'><div className='btn m-1 question-icon' style={showStatusStyle} onClick={()=>{console.log('id - ', ce.id);}}>{index+1}</div></span>
-                    // </div>
                   )
                 })
               }
@@ -180,19 +203,13 @@ const InterviewComponent = () => {
             </Grid>
           </Grid>
         </div>
-        {/* <div>{location.questions.map((ce) => {
-          return (
-            <p>{ce.id}</p>
-          )
-        })}</div> */}
+        
         <button type='button' className='btn btn-outline-primary mx-3' onClick={() => handleCorrect(location.state.questions[currentIndex])}>Correct</button>
         <button type='button' className='btn btn-outline-warning mx-3' onClick={() => handleWrong(location.state.questions[currentIndex])}>Wrong</button>
 
 
         <button type='button' className='btn btn-outline-secondary mx-3' onClick={nextQuestion} disabled={isDisable}>{btn}</button>
 
-
-      {/* <div className='circle my-5'></div> */}
     </div>
   );
 };

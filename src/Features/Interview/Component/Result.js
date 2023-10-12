@@ -15,8 +15,8 @@ const Result = () => {
         justifyContent: "center",
         alignItems: "center",
 
-        width: "125px",
-        height: "125px",
+        width: "75%",
+        height: "105px",
         borderRadius: "50%",
         background: `radial-gradient(closest-side, white 85%, transparent 95% 80%), conic-gradient(${scoreColor} ${percent}%, pink 0)` 
     }
@@ -38,26 +38,44 @@ const Result = () => {
         <p className='display-4'>Result</p>
         <Grid container spacing={2}>
             <Grid item xs={9} className="borders">
-            <table className='center1 borders text-left my-5' width={"80%"}>
-            {
-                location.state.data.map((ce, index) => {
-                    return(
-                        <tr className='borders' key={index} width={"30%"}>
-                            <td className='border p-2'>{index+1}</td>
-                            <td className='border pl-4' style={ce.status ? {"color":"green"} : {"color":"red"}}>{ce.question.question}</td>
-                        </tr>
-                    )
-                })
-            }
+
+            <table class="table table-striped">
+            <tbody>
+                {
+                    location.state.data.map((ce, index) => {
+                        return (
+                            <tr>
+                                <th scope="row" key={index}>{index+1}</th>
+                                <td style={ce.status==="true" ? {"color":"green"} : (ce.status==="false" ? {"color":"red"} : {"color":"#8c8989"})}>{ce.question}</td>
+                            </tr>
+                        )})
+                }
+                
+            </tbody>
             </table>
+
             </Grid>
             <Grid item xs={3} className="borders">
-                <div className='my-5 border m-3' style={{"backgroundColor":"#c0c0c0", "borderRadius":"20px"}}>
-                    <span className='resultBoard borders' style={{"fontSize":"4rem"}}>{}<span style={{"color":scoreColor}}>{location.state.correct}</span>{}<span style={{"color":"green"}}>/</span>{}<span style={{"color":"green"}}>{location.state.data.length}</span>{}</span>
-                    <span className='resultBoard borders my-2' style={{"marginLeft": "15%"}}><span className="displays-4" style={{"marginLeft": "15%", "color": scoreColor, "fontSize":"2rem"}}>
+                <div className='mt-5 border mr-3' style={{"backgroundColor":"#c0c0c0", "borderRadius":"20px"}}>
+                    <span className='resultBoard borders m-0' style={{"fontSize":"4rem"}}>{}<span style={{"color":scoreColor}}>{location.state.correct}</span>{}<span style={{"color":"green"}}>/</span>{}<span style={{"color":"green"}}>{location.state.data.length}</span>{}</span>
+                    <span className='resultBoard borders my-2' style={{"marginLeft": "15%"}}><span className="displays-4" style={{"marginLeft": "15%", "color": scoreColor, "fontSize":"180%"}}>
                         <span className='progressBar' style={progressIcon}><progress value={percent} min="0" max="100" style={{"visibility":"hidden", "height":0,"width":0}}></progress>{percent}%</span>
                     </span></span>
                     <p className="my-5" style={{"color": scoreColor, "fontSize":"1.5rem"}}>{percent<75 ? "Hard Luck!! Need more Practice!!" : "Great Work!! keep Practicing."}</p>
+                </div>
+                <div className='mr-3 mt-1 p-0'>
+                <table className='aa' style={{"backgroundColor":"#c0c0c0", "borderRadius":"10px"}} width="100%">
+                    <tr>
+                        <th className='text-center' width="33.33%">Correct <span className='circle' style={{backgroundColor:"Green"}}></span></th>
+                        <th className='text-center' width="33.33%">Wrong <span className='circle' style={{backgroundColor:"Red"}}></span></th>
+                        <th className='text-center' width="33.33%">NA <span className='circle' style={{backgroundColor:"#8c8989"}}></span></th>
+                    </tr>
+                    <tr>
+                        <td><b>{location.state.correct}</b></td>
+                        <td><b>{location.state.wrong}</b></td>
+                        <td><b>{location.state.notAttempted}</b></td>
+                    </tr>
+                </table>
                 </div>
             </Grid>
         </Grid>
