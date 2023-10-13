@@ -7,6 +7,7 @@ import QuestionsByCategories from '../Features/Categories/Container/QuestionsByC
 import InterviewRequisites from '../Features/Interview/Component/InterviewRequisites'
 import TestApi from '../Features/Interview/Component/TestApi'
 import Result from '../Features/Interview/Component/Result'
+import About from '../Features/About/Container/About'
 
 const Routers = () => {
   return (
@@ -18,6 +19,7 @@ const Routers = () => {
         <Route path="/new-question" element={<AddQuestion />} />
         <Route path="/categories" element={<QuestionsByCategories />} />
         <Route path="/result" element={<Result />} />
+        <Route path="/about" element={<About />} />
         <Route path="/testapi" element={<TestApi />} />
     </Routes>
   )

@@ -15,8 +15,8 @@ const Result = () => {
         justifyContent: "center",
         alignItems: "center",
 
-        width: "13vmin",
-        height: "13vmin",
+        width: "10vmin",
+        height: "10vmin",
         borderRadius: "50%",
         background: `radial-gradient(closest-side, white 85%, transparent 95% 80%), conic-gradient(${scoreColor} ${percent}%, pink 0)`,
         position: "relative",
@@ -38,8 +38,8 @@ const Result = () => {
   return (
     <div>
         <p className='display-5'>Result</p>
-        <Grid container spacing={2}>
-            <Grid item xs={9.5} className="border">
+        <Grid container spacing={0}>
+            <Grid item xs={9} className="borders">
 
             <table class="table table-striped">
             <tbody>
@@ -57,31 +57,31 @@ const Result = () => {
             </table>
 
             </Grid>
-            <Grid item xs={2} className="border p-3">
-                {/* <div className='mt-0 border mr-3' style={{"backgroundColor":"#c0c0c0", "borderRadius":"20px", "width":"50vmin"}}> */}
-                    <Grid container spacing={2.5} className='border' style={{"backgroundColor":"#c0c0c0", "borderRadius":"20px", "width":"50vmin"}}>
-                        <Grid item xl={6} className='border'>
-                            <span className='resultBoard borders m-0' style={{"fontSize":"4rem"}}>
-                                <span style={{"color":scoreColor, fontSize:"9vmin"}}>{location.state.correct}</span><span style={{"color":"green", fontSize:"9vmin"}}>/</span><span style={{"color":"green", fontSize:"9vmin"}}>{location.state.data.length}</span>
+            <Grid item xs={2} className="borders pb-5">
+                <div className='mt-0 borders mr-3 p-4' style={{"backgroundColor":"#c0c0c0", "borderRadius":"20px", "width":"43vmin"}}>
+                    <Grid container spacing={0} className='borders'>
+                        <Grid item xs={6} className='borders'>
+                            <span className='resultBoard borders' style={{"fontSize":"4rem"}}>
+                                <span style={{"color":scoreColor, fontSize:"8vmin"}}>{location.state.correct}</span><span style={{"color":"green", fontSize:"8vmin"}}>/</span><span style={{"color":"green", fontSize:"8vmin"}}>{location.state.data.length}</span>
                             </span>
                         </Grid>
-                        <Grid item xl={6} className='border'>
-                            <span className='resultBoard borders m-0' style={{"marginLeft": "15%"}}>
+                        <Grid item xs={6} className='borders p-0'>
+                            <span className='resultBoard borders' style={{"marginLeft": "15%"}}>
                                 <span className="displays-4" style={{"marginLeft": "15%", "color": scoreColor, "fontSize":"180%"}}>
                                     <span className='progressBar' style={progressIcon}>
                                         <progress value={percent} min="0" max="100" style={{"visibility":"hidden", "height":0,"width":0}}></progress>
-                                        <span style={{fontSize:"4.5vmin"}}>{percent}%</span>
+                                        <span style={{fontSize:"3vmin"}}>{percent}%</span>
                                     </span>
                                 </span>
                             </span>
                         </Grid>
-                        <p className="mt-5 pl-4" style={{"color": scoreColor, "fontSize":"3vmin", height:"10px"}}>{percent<75 ? "Hard Luck!! Need more Practice!!" : "Great Work!! keep Practicing."}</p>
+                        <p className="mt-5 ml-3 pb-0 text-center" style={{"color": scoreColor, "fontSize":"2.3vmin", height:"10px"}}>{percent<75 ? "Hard Luck!! Need more Practice!!" : "Great Work!! keep Practicing."}</p>
                     </Grid>
                     
-                {/* </div> */}
-                {/* <div className='mr-3 mt-1 p-0'> */}
+                </div>
+                <div className='mr-3 mt-1 p-0'>
             
-                <table className='aa p-0 mt-2' style={{"backgroundColor":"#c0c0c0", "borderRadius":"10px", width:"50vmin"}}>
+                <table className='scoreTable p-0 mt-2' style={{"backgroundColor":"#c0c0c0", "borderRadius":"10px"}}>
                     <tr>
                         <th className='text-center' style={{width:"33.33%", fontSize:"2vmin"}}>Correct <span className='circle' style={{backgroundColor:"Green"}}></span></th>
                         <th className='text-center' style={{width:"33.33%", fontSize:"2vmin"}}>Wrong <span className='circle' style={{backgroundColor:"Red"}}></span></th>
@@ -93,7 +93,7 @@ const Result = () => {
                         <td><b>{location.state.notAttempted}</b></td>
                     </tr>
                 </table>
-                {/* </div> */}
+                </div>
             </Grid>
         </Grid>
     </div>

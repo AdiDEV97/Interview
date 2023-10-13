@@ -64,8 +64,9 @@ const HeaderComponent = () => {
 
   return (
     
+    // <nav className={`navbar navbar-expand-lg navbar-light bg-light`} width={"100%"} style={{modeProps, fontWeight:"bold"}}>
     <nav className={`navbar navbar-expand-lg ${headerClass1} ${headerClass2}`} width={"100%"} style={{modeProps, fontWeight:"bold"}}>
-        <div class="container-fluid">
+        <div className="container-fluid">
             
             <div className='logo mr-5'>
                 <h3>
@@ -88,7 +89,7 @@ const HeaderComponent = () => {
                     <Link className="nav-link mx-2" id='interview' name={"Interview"} to="/interview-requisites">Interview</Link>
                 
 
-                    <Link className="nav-link mx-2" id='interview' name={"Interview"} to="#">About</Link>
+                    <Link className="nav-link mx-2" id='interview' name={"Interview"} to="/about">About</Link>
 
 
                     <Link className="nav-link modeLink mx-2 pr-0" onClick={handleMode}>{mode}</Link>

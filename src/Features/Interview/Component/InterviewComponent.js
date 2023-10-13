@@ -44,11 +44,14 @@ const InterviewComponent = () => {
 
   const [newResultData, setNewResultData] = useState([]);
 
+  var seconds = parseInt(location.state.info.time);
+
   for(let i=0; i<30; i++){
     statusArray.push(i);
   }
 
   useEffect(() => {
+    handleRead(location.state.questions[0].question)
     console.log('Location Data - ', location);
     console.log('RESULTDATA =========>> ', resultData);
     location.state.questions.forEach((question) => {
@@ -66,6 +69,31 @@ const InterviewComponent = () => {
     }, 1000);
   
     return () => clearInterval(intervalId);
+  }, [])
+
+  useEffect(() => {
+    const countDown = setInterval(stopWatch, 1000);
+
+    function stopWatch(){
+      
+      if(seconds!==0){
+        seconds--;
+        setSecondsData(seconds);
+      }
+      if(seconds<3) {
+        if(btn === "Next") {
+          var sound = new Audio("beep-07a.wav");
+          sound.volume = 0.05;
+          sound.play().catch((err) => {console.log('Error - ', err);});
+        }
+      }
+      if(seconds===0) {
+        clearInterval(countDown);
+        setCount(count+1);
+        setIsDisable(false)
+      }
+
+    }
   }, [])
 
 
@@ -94,15 +122,15 @@ const InterviewComponent = () => {
     setShowStatusStyle({background: "rgb(210, 100, 100)"})
   }
 
-
+  
   function nextQuestion() {
-
     setIsDisable(true);
   
-    var seconds = parseInt(location.state.info.time);
+    
     const countDown = setInterval(stopWatch, 1000);
 
     function stopWatch(){
+      
       if(seconds!==0){
         seconds--;
         setSecondsData(seconds);
@@ -124,6 +152,7 @@ const InterviewComponent = () => {
 
     
     if(currentIndex+1 <= arrSize-1) {
+      handleRead(location.state.questions[currentIndex+1].question)
       setCurrentIndex(currentIndex+1)
     }
     if(currentIndex+1 === arrSize-1){
@@ -154,8 +183,51 @@ const InterviewComponent = () => {
       navigate(navigationPath, {state: {"data": resultData, "correct":correct, "wrong":wrong, "notAttempted": notAttempted}});
     }
     console.log('ResultData11 - ', data);
-    
   };
+  
+
+  const handleRead = (question) => {
+    console.log('Index ---> ', question);
+      let readQuestion = new SpeechSynthesisUtterance(question);
+      let voices = window.speechSynthesis.getVoices();
+      //console.log('All Voices - ', voices);
+      //readQuestion.voice = voices[164];
+      //readQuestion.voice = voices[158];
+      readQuestion.voice = voices[0];
+      if(readQuestion != undefined) {
+        console.log('Working');
+        window.speechSynthesis.speak(readQuestion);
+      }
+      else {
+        console.log('Error');
+      }
+      
+  }
+
+  // const handleRead = (question) => {
+  //   // console.log('Index ---> ', question);
+  //   // let utterance = new SpeechSynthesisUtterance("Educative.io");
+  //   // speechSynthesis.speak(utterance);
+  //   if ('speechSynthesis' in window) {
+  //     console.log('Speech Synthesis is supported 🎉');
+  //     let voices = getVoices();
+  //        let rate = 1, pitch = 2, volume = 1;
+  //        let text = "Spaecking with volume = 1 rate =1 pitch =2 ";
+         
+  //        speak(text, voices[5], rate, pitch, volume);
+         
+  //        setTimeout(()=>{ // speak after 2 seconds 
+  //        rate = 0.5; pitch = 1.5, volume = 0.5;
+  //        text = "Spaecking with volume = 0.5 rate = 0.5 pitch = 1.5 ";
+  //        speak(text, voices[10], rate, pitch, volume );
+  //        }, 2000);
+  //        }
+  //   else{
+  //   console.log(' Speech Synthesis Not Supported 😞'); 
+  //   }
+  // }
+
+
 
   return (
     <div className="container">
@@ -185,17 +257,21 @@ const InterviewComponent = () => {
                     <Grid item xs={6}><big><p className="text-right mx-4 my-4" style={{"fontSize":"1.2vmax"}}>Company - {location.state.info.companyName}</p></big></Grid>
                   </Grid>
                 </div>
-                <div className='cardQuestion border'>
-                    <p className="text-center my-4" style={{fontSize:"2.3vmax"}}>{location.state.questions[currentIndex].question}</p>
+                <div className='cardQuestion borders'>
+                    <span class="material-symbols-outlined read" onClick={() => handleRead(location.state.questions[currentIndex].question)}>hearing</span>
+                    {/* <button className='read btn btn-primary' onClick={() => handleRead(location.state.questions[currentIndex].question)}>Read</button> */}
+                    <p className="text-center my-4 borders" style={{fontSize:"2.3vmax"}}>{location.state.questions[currentIndex].question}</p>
                 </div>
+                
               </div>
             </Grid>
             <Grid container item xs={2} className='borders'>
+              
               <div className='question-status-chart text-left m-0 border' style={{height:"300px", overflowY:"scroll"}}>
               {
                 location.state.questions.map((ce, index) => {
                   return (
-                    <span className='text-center borders m-1'><div className='btn m-1 question-icon' style={showStatusStyle} onClick={()=>{console.log('id - ', ce.id);}}>{index+1}</div></span>
+                    <span className='text-center borders m-1'><div className='btn m-1 question-icon' style={ce.status==="true" ? {background: "rgb(150, 200, 255)"} : (ce.status==="false" ? {background: "rgb(210, 100, 100)"} : {background: "rgb(211, 211, 211)"})} onClick={()=>{console.log('id - ', ce.id, ce.status);}}>{index+1}</div></span>
                   )
                 })
               }
@@ -204,11 +280,11 @@ const InterviewComponent = () => {
           </Grid>
         </div>
         
-        <button type='button' className='btn btn-outline-primary mx-3' onClick={() => handleCorrect(location.state.questions[currentIndex])}>Correct</button>
-        <button type='button' className='btn btn-outline-warning mx-3' onClick={() => handleWrong(location.state.questions[currentIndex])}>Wrong</button>
+        <button type='button' className='interveiwBtn btn btn-outline-primary' onClick={() => handleCorrect(location.state.questions[currentIndex])}>Correct</button>
+        <button type='button' className='interveiwBtn btn btn-outline-warning' onClick={() => handleWrong(location.state.questions[currentIndex])}>Wrong</button>
 
 
-        <button type='button' className='btn btn-outline-secondary mx-3' onClick={nextQuestion} disabled={isDisable}>{btn}</button>
+        <button type='button' className='interveiwBtn btn btn-outline-secondary' onClick={nextQuestion} disabled={isDisable}>{btn}</button>
 
     </div>
   );
