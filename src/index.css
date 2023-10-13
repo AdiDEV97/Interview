@@ -27,6 +27,17 @@ code {
   color      : #6a0ec094;
 }
 
+.navbar-nav {
+  width: 100% !important;
+  padding: 0px;
+  margin: 0px;
+}
+
+.modeLink {
+  position: absolute;
+  right: 0px;
+}
+
 .nav-link {
   font-size: large;
   /* border: 1px solid black; */
@@ -66,15 +77,17 @@ a:hover {
 
 .mode {
   /* display: flex; */
-  margin-top  : 30px;
-  margin-right: 10px;
-  font-size   : large;
+  /* margin-top  : 30px;
+  margin-right: 10px; */
+  font-size   : larger;
   color       : #544e4e;
   text-align  : right;
+  text-decoration: none;
 }
 
 .mode:hover {
   cursor: pointer;
+  color: gray;
 }
 
 
