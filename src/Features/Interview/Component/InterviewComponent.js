@@ -159,7 +159,7 @@ const InterviewComponent = () => {
 
   return (
     <div className="container">
-      <p className='display-4'>Interview</p>
+      <p className='display-5'>Interview</p>
       <small><table className='timer'>
         <tr className='borders'>
           <th className='border p-2'>Hr</th>
@@ -181,12 +181,12 @@ const InterviewComponent = () => {
               <div className='card borders'>
                 <div className='cardHeading text-center border'>
                   <Grid className='cardHeading border' container spacing={0} height={100}>
-                    <Grid item xs={6}><big><p className="text-left mx-4 my-4">Candidate Name - {location.state.info.interviewerName}</p></big></Grid>
-                    <Grid item xs={6}><big><p className="text-right mx-4 my-4">Company - {location.state.info.companyName}</p></big></Grid>
+                    <Grid item xs={6}><big><p className="text-left mx-4 my-4" style={{"fontSize":"1.2vmax"}}>Candidate Name - {location.state.info.interviewerName}</p></big></Grid>
+                    <Grid item xs={6}><big><p className="text-right mx-4 my-4" style={{"fontSize":"1.2vmax"}}>Company - {location.state.info.companyName}</p></big></Grid>
                   </Grid>
                 </div>
                 <div className='cardQuestion border'>
-                    <p className="text-center my-4" style={{fontSize:'30px'}}>{location.state.questions[currentIndex].question}</p>
+                    <p className="text-center my-4" style={{fontSize:"2.3vmax"}}>{location.state.questions[currentIndex].question}</p>
                 </div>
               </div>
             </Grid>

@@ -185,7 +185,7 @@ const AllQuestionsComponent = () => {
 
   return (
     <div className='my-1'>
-      <p className="display-4">Preperation</p>
+      <p className="display-5">Preperation</p>
       <Grid container spacing={2}>
         <Grid item xs={12}>
 
@@ -195,7 +195,7 @@ const AllQuestionsComponent = () => {
               {/* <button type='button' className='btn btn-outline-primary' onClick={() => handleSearchClick()}><span className="material-symbols-outlined">
 search</span></button> */}
               <span className='navbar-brand' to="" onClick={() => {allQuestionsData();setCategoryId(0);setSearchWord("");setShowError(false);}}>All</span>
-              {allCategories.map((ce, index) => {  
+              {allCategories.map((ce) => {  
                 return(
                   <span className='navbar-brand' to="" onClick={() => getQuestionsByCategory(ce.categoryId)} key={ce.categoryId}>{ce.categoryTitle}</span>
                 )
@@ -229,12 +229,12 @@ search</span></button> */}
                     <>
                         
                         <tr className="headingRow" key={index}>
-                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-0.2' style={{color:"brown"}} width={"0.1vw"}>{index+1}</td>
                             <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
 
-                            <td className='btn-group dropright text-right'>
+                            <td className='btn-group dropright text-right'> 
                                 <div className='btn-group dropend'>
-                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
+                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)} style={{"width":"10vmax", "fontSize":"1vmax"}}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
 
                                     <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span className="visually-hidden" />
@@ -274,12 +274,12 @@ search</span></button> */}
                 return (
                     <>
                         <tr className="headingRow" key={index}>
-                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-0.2' style={{color:"brown"}} width={"1vw"}>{index+1}</td>
                             <td className='col-md-10 border' style={{color:"brown"}}>{ce.question}</td>
 
                             <td className='btn-group dropright text-right'>
                                 <div className='btn-group dropend'>
-                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
+                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)} style={{"width":"10vmax", "fontSize":"1vmax"}}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
 
                                     <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span className="visually-hidden" />
@@ -317,12 +317,12 @@ search</span></button> */}
                 return (
                     <>
                         <tr className="headingRow" key={index}>
-                            <td className='col-md-1' style={{color:"brown"}}>{index+1}</td>
+                            <td className='col-md-0.2' style={{color:"brown"}}>{index+1}</td>
                             <td className='col-md-10 border' style={{color: "brown"}}>{ce.question}</td>
 
                             <td className='btn-group dropright text-right'>
                                 <div className='btn-group dropend'>
-                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
+                                <button className="btn btn-outline-primary" type='button' onClick={() => handleRevealAnswer(ce.id)} style={{"width":"10vmax", "fontSize":"1vmax"}}>{expandId===ce.id ? (buttonText) : "Reveal Answer"}</button>
 
                                     <button type="button" className="btn btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span className="visually-hidden" />

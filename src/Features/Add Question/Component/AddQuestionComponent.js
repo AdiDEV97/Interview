@@ -96,7 +96,7 @@ const AddQuestionComponent = () => {
 
   return (
     <div>
-      <h3 className="display-4">New Question</h3>
+      <h3 className="display-5">New Question</h3>
 
       <form className='pl-5 pr-5' onSubmit={handleSubmit}>
         <div className='form-group text-left'>

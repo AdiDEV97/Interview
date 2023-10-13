@@ -125,19 +125,19 @@ const InterviewRequisites = () => {
 
   return (
     <div>
-      <p className='display-4'>Requisites</p>
+      <p className='display-5'>Requisites</p>
     
       {showError ? <p className='text-danger'>{validation.message}</p> : null}
       {showTopicError ? <p className='text-danger'>{topicValidation.message}</p> : null}
 
-      <form className='requisite-from center' onSubmit={handleStartInterview}>
+      <form className='requisite-from center2' onSubmit={handleStartInterview}>
         <div className='form-group text-left'>
             <label htmlFor='interviewerName'><big>Name</big></label>
             <input type='text' className='form-control' id='interviewerName' placeholder='Your full name' name="interviewerName" value={requisite.interviewerName} onChange={handleRequisiteChange} />
         </div>
         <div className='form-group text-left'>
             <label htmlFor='company'><big>Company Name</big></label>
-            <input type='text' className='form-control' id='company' placeholder='Your full name' name="companyName" value={requisite.companyName} onChange={handleRequisiteChange} />
+            <input type='text' className='form-control' id='company' placeholder='Your company name' name="companyName" value={requisite.companyName} onChange={handleRequisiteChange} />
         </div>
         <div className='form-group text-left'>
             <label htmlFor='topics'><big>Select topics</big></label>
@@ -154,11 +154,11 @@ const InterviewRequisites = () => {
         </div>
         <div className='form-group text-left'>
             <label htmlFor='question-count'><big>Number of Questions</big></label>
-            <input type='text' className='form-control' id='question-count' placeholder='Your full name' name="questionCount" value={requisite.questionCount} onChange={handleRequisiteChange} />
+            <input type='text' className='form-control' id='question-count' placeholder='No of questions' name="questionCount" value={requisite.questionCount} onChange={handleRequisiteChange} />
         </div>
         <div className='form-group text-left'>
             <label htmlFor='time'><big>Time for each question</big></label>
-            <input type='text' className='form-control' id='time' placeholder='Your full name' name="time" value={requisite.time} onChange={handleRequisiteChange} />
+            <input type='text' className='form-control' id='time' placeholder='Time in seconds' name="time" value={requisite.time} onChange={handleRequisiteChange} />
         </div>
         <button type='submit' className='btn btn-outline-primary'>Start Interview</button>
       </form>
