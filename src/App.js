@@ -6,6 +6,9 @@ import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
+
+  console.log = function() {}
+
   return (
     <div className="App">
       {/* <h3>Interview Master</h3> */}
