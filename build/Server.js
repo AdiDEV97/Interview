@@ -13,8 +13,8 @@ app.get("*", (req, res) => {
 });
 
 
-// if not in production use the port 5000
-const PORT = process.env.PORT || 5000;
+// if not in production use the port 5001
+const PORT = process.env.PORT || 5001;
 
 
 console.log("Listening to port : ", PORT);
