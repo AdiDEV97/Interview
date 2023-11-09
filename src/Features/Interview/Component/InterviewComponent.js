@@ -258,7 +258,7 @@ const InterviewComponent = () => {
                   </Grid>
                 </div>
                 <div className='cardQuestion borders'>
-                    <span class="material-symbols-outlined read" onClick={() => handleRead(location.state.questions[currentIndex].question)}>hearing</span>
+                    <span className="material-symbols-outlined read" onClick={() => handleRead(location.state.questions[currentIndex].question)}>hearing</span>
                     {/* <button className='read btn btn-primary' onClick={() => handleRead(location.state.questions[currentIndex].question)}>Read</button> */}
                     <p className="text-center my-4 borders" style={{fontSize:"2.3vmax"}}>{location.state.questions[currentIndex].question}</p>
                 </div>

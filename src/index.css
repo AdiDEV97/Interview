@@ -536,3 +536,7 @@ a:hover {
   position: relative;
   top: 10px;
 }
+
+.read:hover {
+  cursor: pointer;
+}
