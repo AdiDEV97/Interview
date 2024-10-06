@@ -1,5 +1,7 @@
 import React from 'react'
 
+// About Component
+
 const AboutComponent = () => {
   return (
     <div>
