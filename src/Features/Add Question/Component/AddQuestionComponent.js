@@ -3,6 +3,8 @@ import { addNewQuestionApi, getAllCategoriesApi } from '../Service/AddQuestionAp
 import { useLocation, useNavigate } from 'react-router-dom';
 import JoditEditor, { Jodit } from 'jodit-react';
 
+// Add Question Component
+
 
 const AddQuestionComponent = () => {
 
