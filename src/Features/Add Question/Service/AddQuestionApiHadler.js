@@ -1,5 +1,7 @@
 import { BASE_URL, performApiRequest } from "../../../Service/CreateApi";
 
+// Add Question API Handler
+
 export const addNewQuestionApi = async (categoryId, newQuestionData) => {
 
     const response = await performApiRequest.post(`${BASE_URL}/api/v1/prep/add-question/categoryId-${categoryId}`, newQuestionData);
