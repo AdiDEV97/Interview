@@ -1,6 +1,8 @@
 import React from 'react'
 import AllQuestionsComponent from '../Component/AllQuestionsComponent'
 
+// All Questions Container
+
 const AllQuestions = () => {
   return (
     <div>
