@@ -6,6 +6,8 @@ import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHa
 import { toast } from 'react-toastify';
 import { dark } from '@mui/material/styles/createPalette';
 
+// All Questions Component
+
 const AllQuestionsComponent = () => {
 
     const [allQuestions, setAllQuestions] = useState([]);
