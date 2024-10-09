@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { addCategoryApi } from '../Service/CategoryApiHandler';
 
+// QuestionsByCategoriesComponent
+
 const QuestionsByCategoriesComponent = () => {
 
   const [category, setCategory] = useState({
