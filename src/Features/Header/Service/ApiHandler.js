@@ -1,5 +1,7 @@
 import { BASE_URL, performApiRequest } from "../../../Service/CreateApi"
 
+// Header API Handler
+
 export const getAllQuestions = async () => {
     const response = await performApiRequest.get(`${BASE_URL}/api/v1/prep/all-questions`);
     return response.data;
