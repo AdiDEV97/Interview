@@ -2,6 +2,8 @@ import { colors } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
+// Header Component
+
 const HeaderComponent = () => {
 
     const [mode, setMode] = useState("Dark Mode");
