@@ -2,6 +2,8 @@ import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// Interview Component
+
 const InterviewComponent = () => {
 
   const [currentTime, setCurrentTime] = useState({
