@@ -3,7 +3,7 @@ import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHa
 import { getQuestionsByMultipleEntities } from '../../Header/Service/ApiHandler';
 import { useNavigate } from 'react-router-dom';
 
-// InterviewRequisite Component
+// Interview Requisite Component
 
 const InterviewRequisites = () => {
 
