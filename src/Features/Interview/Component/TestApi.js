@@ -2,6 +2,8 @@ import React from 'react'
 import { getQuestionsByMultipleEntities } from '../../Header/Service/ApiHandler'
 import axios from 'axios';
 
+// Test Api Component
+
 const TestApi = () => {
 
   function handleMultipleEntities() {
