@@ -3,6 +3,8 @@ import { getAllCategoriesApi } from '../../Add Question/Service/AddQuestionApiHa
 import { getQuestionsByMultipleEntities } from '../../Header/Service/ApiHandler';
 import { useNavigate } from 'react-router-dom';
 
+// InterviewRequisite Component
+
 const InterviewRequisites = () => {
 
     const [allTopics, setAllTopics] = useState([]);
